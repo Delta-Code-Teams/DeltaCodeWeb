@@ -179,7 +179,7 @@
   /* ---------- logos ---------- */
   .logos-strip{padding:50px 0;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
   .logos-strip p{text-align:center;font-size:13px;color:var(--muted);margin-bottom:30px;letter-spacing:.02em;}
-  .logos-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px 40px;opacity:.75;}
+  .logos-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px 40px;}
   .logos-row span{font-family:'Space Grotesk';font-weight:600;font-size:17px;color:#B9AFD1;letter-spacing:.01em;transition:color .3s,opacity .3s;}
   .logos-row span:hover{color:var(--text);opacity:1;}
 
@@ -382,6 +382,52 @@
   }
 
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+
+  /* ---------- ESTILOS PARA LOS LOGOS DE MARCAS ---------- */
+  .brand-logo {
+    height: 28px; /* Altura uniforme para todos */
+    width: auto;
+    object-fit: contain;
+    opacity: 0.5;
+    /* Este filtro los vuelve grises para que combinen con el fondo oscuro */
+    filter: grayscale(100%) brightness(200%); 
+    transition: all 0.3s ease;
+  }
+  .brand-logo:hover {
+    opacity: 1;
+    filter: grayscale(0%) brightness(100%); /* Vuelven a su color original al tocarlos */
+    transform: translateY(-3px);
+  }
+
+  /* ---------- MEJORAS ESPECÍFICAS PARA CELULARES ---------- */
+  @media (max-width: 600px) {
+    /* Achica los logos un poco en el celular */
+    .brand-logo { height: 20px; }
+    .logos-row { gap: 20px; justify-content: center; }
+
+    /* Ajuste de la barra superior para que los botones no se amontonen */
+    nav { padding: 16px 20px; }
+    .nav-cta .btn-ghost { display: none; } /* Ocultamos el botón secundario para dejar solo el de WhatsApp */
+    
+    /* Ajuste de márgenes laterales para ganar espacio de lectura */
+    .container { padding: 0 20px; } 
+    .hero { padding: 130px 0 50px; }
+
+    /* Ajuste del Footer (pie de página) para que quede en 1 sola columna vertical */
+    .foot-grid { 
+      grid-template-columns: 1fr; 
+      gap: 30px; 
+      text-align: center; 
+    }
+    .foot-col p { margin: 0 auto 12px auto; }
+    .foot-col .logo { justify-content: center; }
+    .foot-bottom { 
+      flex-direction: column; 
+      text-align: center; 
+      gap: 16px; 
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -442,8 +488,11 @@
   <div class="container">
     <p>Compatible con las marcas que reparás todos los días</p>
     <div class="logos-row reveal">
-      <span>Samsung</span><span>Apple</span><span>Motorola</span><span>Xiaomi</span>
-      <span>Lenovo</span><span>Asus</span><span>HP</span><span>Dell</span>
+      <img src="img/logo-samsung.png" alt="Samsung" class="brand-logo">
+      <img src="img/logo-motorola.png" alt="Motorola" class="brand-logo">
+      <img src="img/logo-apple.png" alt="iPhone" class="brand-logo">
+      <img src="img/logo-xiaomi.png" alt="Xiaomi" class="brand-logo">
+      <img src="img/logo-lg.png" alt="LG" class="brand-logo">
     </div>
   </div>
 </section>
@@ -994,7 +1043,7 @@ ScrollTrigger.create({
 });
 
 /* logo strip subtle stagger */
-gsap.from('.logos-row span',{
+gsap.from('.logos-row img',{
   opacity:0, y:12, duration:0.6, stagger:0.06, ease:'power2.out',
   scrollTrigger:{trigger:'.logos-strip', start:'top 85%'}
 });
