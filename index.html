@@ -52,6 +52,7 @@
   a{color:inherit;text-decoration:none;}
   img{max-width:100%;display:block;}
   picture{display:contents;} 
+
   #cursor-dot, #cursor-ring{
     position:fixed; top:0; left:0; pointer-events:none; z-index:9999;
     transform:translate(-50%,-50%);
@@ -76,6 +77,7 @@
     #cursor-dot,#cursor-ring{display:none;}
     body{cursor:auto;}
   }
+
   #particles{position:fixed;inset:0;z-index:0;opacity:.55;pointer-events:none;}
 
   .noise{
@@ -86,6 +88,7 @@
 
   .container{max-width:1240px;margin:0 auto;padding:0 32px;}
   section{position:relative;z-index:2;}
+
   header{
     position:fixed;top:0;left:0;right:0;z-index:100;
     backdrop-filter:blur(16px);
@@ -107,7 +110,7 @@
   nav{flex-wrap:nowrap;}
   .logo{min-width:0;flex-shrink:1;}
   @media (max-width:420px){
-    .logo .logo-text{display:none;} 
+    .logo .logo-text{display:none;}
     .nav-cta .btn-sm{padding:9px 14px;font-size:12.5px;}
   }
   @media (max-width:900px){.navlinks{display:none;}}
@@ -128,6 +131,7 @@
   }
   .btn-ghost:hover{border-color:var(--accent); background:rgba(177,92,255,0.06); transform:translateY(-2px);}
   .btn-sm{padding:9px 18px;font-size:13px;}
+
   .hero{padding:180px 0 120px; position:relative;}
   .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;}
   @media (max-width:980px){.hero-grid{grid-template-columns:1fr;} .hero{padding:150px 0 70px;}}
@@ -153,6 +157,7 @@
   .hero-meta{display:flex;gap:34px;flex-wrap:wrap;}
   .hero-meta div{font-size:13px;color:var(--muted);}
   .hero-meta strong{display:block;font-family:'Space Grotesk';font-size:22px;color:var(--text);font-weight:600;}
+
   .mock-stage{position:relative;perspective:1600px;}
   .mock-glow{
     position:absolute; inset:-120px; z-index:0;
@@ -176,11 +181,13 @@
   .mock-topbar span{width:9px;height:9px;border-radius:50%;background:#3a3450;}
   .mock-real-screen{background:#0C0716;overflow:hidden;display:flex;align-items:center;justify-content:center;}
   .mock-real-screen img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;}
+
   .logos-strip{padding:50px 0;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
   .logos-strip p{text-align:center;font-size:13px;color:var(--muted);margin-bottom:30px;letter-spacing:.02em;}
   .logos-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px 40px;}
   .logos-row span{font-family:'Space Grotesk';font-weight:600;font-size:17px;color:#B9AFD1;letter-spacing:.01em;transition:color .3s,opacity .3s;}
   .logos-row span:hover{color:var(--text);opacity:1;}
+
   .sec-head{max-width:640px;margin-bottom:56px;}
   .sec-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px;display:block;}
   .sec-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:600;line-height:1.15;margin-bottom:16px;}
@@ -188,6 +195,7 @@
   .sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
 
   section.pad{padding:120px 0;}
+
   .feature-showcase{display:flex;flex-direction:column;gap:130px;}
   .feature-row{display:grid;grid-template-columns:0.92fr 1.08fr;gap:64px;align-items:center;}
   .feature-row.rev{direction:rtl;}
@@ -207,7 +215,8 @@
   .feature-text p.f-desc{font-size:15.5px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:480px;}
   .f-highlights{list-style:none;display:flex;flex-direction:column;gap:12px;}
   .f-highlights li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#D7CFE8;}
-  .f-highlights li svg{flex-shrink:0;margin-top:2px;color:var(--green);} 
+  .f-highlights li svg{flex-shrink:0;margin-top:2px;color:var(--green);}
+
   .device-stage{position:relative;perspective:1700px;}
   .device-glow{
     position:absolute; inset:-90px; z-index:0;
@@ -216,6 +225,7 @@
   }
   .device-frame{position:relative;z-index:1;transition:transform .4s cubic-bezier(.2,.8,.2,1);}
   .feature-row:hover .device-frame{transform:translateY(-6px);}
+
   .device-frame.laptop .laptop-lid{
     background:#150F22; border:1px solid rgba(177,92,255,0.22);
     border-radius:14px 14px 5px 5px; padding:14px 14px 10px;
@@ -232,6 +242,7 @@
     content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
     width:72px; height:5px; background:var(--bg); border-radius:0 0 6px 6px;
   }
+
   .device-frame.monitor .screen-wrap{
     background:#150F22; border:1px solid rgba(177,92,255,0.22); border-radius:14px; padding:12px;
     box-shadow:0 60px 100px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.03);
@@ -243,6 +254,7 @@
   .screen img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#0C0716;}
   .screen-doc{background:#fff !important;display:flex;align-items:center;justify-content:center;padding:14px;}
   .screen-doc img{width:auto;height:100%;max-width:100%;object-fit:contain;}
+
   .timeline-wrap{position:relative;}
   .timeline-line{
     position:absolute; left:29px; top:10px; bottom:10px; width:2px;
@@ -266,6 +278,7 @@
   .tl-body{padding-top:10px;}
   .tl-body h4{font-family:'Space Grotesk';font-size:19px;font-weight:600;margin-bottom:6px;}
   .tl-body p{color:var(--muted);font-size:14px;line-height:1.6;max-width:480px;}
+
   .benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border-soft);border-radius:18px;overflow:hidden;border:1px solid var(--border-soft);}
   @media (max-width:900px){.benefits-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:600px){.benefits-grid{grid-template-columns:1fr;}}
@@ -274,6 +287,7 @@
   .ben-card .num{font-family:'Space Grotesk';font-size:12px;color:var(--muted);margin-bottom:16px;}
   .ben-card h3{font-family:'Space Grotesk';font-size:17px;font-weight:600;margin-bottom:10px;}
   .ben-card p{font-size:13.5px;color:var(--muted);line-height:1.6;}
+
   .comp-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border-soft);border-radius:16px;overflow:hidden;}
   .comp-table th,.comp-table td{padding:18px 16px;text-align:center;border-bottom:1px solid var(--border-soft);font-size:14px;}
   .comp-table th{font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--muted);background:rgba(255,255,255,0.015);}
@@ -284,6 +298,7 @@
   .x-mark{color:#6b6280;font-size:16px;}
   .check-mark{color:var(--green);font-size:16px;}
   @media (max-width:700px){.comp-table{font-size:12px;} .comp-table th,.comp-table td{padding:12px 8px;}}
+
   .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;}
   @media (max-width:900px){.price-grid{grid-template-columns:1fr;}}
   .price-card{
@@ -305,6 +320,7 @@
   .price-card ul{list-style:none;margin:26px 0 30px;display:flex;flex-direction:column;gap:12px;flex:1;}
   .price-card ul li{font-size:13.5px;color:#D7CFE8;display:flex;gap:10px;align-items:flex-start;}
   .price-card ul li svg{flex-shrink:0;margin-top:2px;color:var(--green);}
+
   .faq-list{max-width:760px;margin:0 auto;}
   .faq-item{border-bottom:1px solid var(--border-soft);}
   .faq-q{
@@ -320,6 +336,7 @@
   .faq-item.open .plus::after{opacity:0;}
   .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1);}
   .faq-a p{padding:0 4px 24px;color:var(--muted);font-size:14.5px;line-height:1.65;max-width:640px;}
+
   .final-cta{
     border-radius:26px; padding:80px 50px; text-align:center; position:relative; overflow:hidden;
     background:linear-gradient(180deg,#130A22,#0C0716);
@@ -334,6 +351,7 @@
   .final-cta h2{position:relative;font-size:clamp(28px,3.6vw,44px);margin-bottom:16px;font-weight:600;}
   .final-cta p{position:relative;color:var(--muted);margin-bottom:34px;font-size:16px;}
   .final-cta .hero-actions{justify-content:center;position:relative;}
+
   footer{border-top:1px solid var(--border-soft);padding:64px 0 32px;}
   .foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;margin-bottom:56px;}
   @media (max-width:800px){.foot-grid{grid-template-columns:repeat(2,1fr);}}
@@ -347,18 +365,22 @@
   .foot-social{display:flex;gap:14px;}
   .foot-social a{width:36px;height:36px;border-radius:9px;border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;transition:border-color .3s,color .3s;}
   .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
+
   .reveal{opacity:0;transform:translateY(28px);}
 
   @media (prefers-reduced-motion:reduce){
     *{animation:none !important;transition:none !important;}
     .reveal{opacity:1;transform:none;}
   }
+
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+
   .brand-logo {
-    height: 28px;
+    height: 28px; 
     width: auto;
     object-fit: contain;
     opacity: 0.5;
+
     filter: grayscale(100%) brightness(200%); 
     transition: all 0.3s ease;
   }
@@ -369,12 +391,13 @@
   }
 
   @media (max-width: 600px) {
+
     .brand-logo { height: 20px; }
     .logos-row { gap: 20px; justify-content: center; }
-    
+
     nav { padding: 16px 20px; }
     .nav-cta .btn-ghost { display: none; } 
-
+    
     .container { padding: 0 20px; } 
     .hero { padding: 130px 0 50px; }
 
@@ -408,7 +431,7 @@
     50%{box-shadow:0 10px 30px -6px rgba(37,211,102,0.65), 0 0 0 10px rgba(37,211,102,0);}
   }
   @media (max-width:600px){ .wa-float{width:54px;height:54px;right:16px;bottom:16px;} .wa-float svg{width:27px;height:27px;} }
-
+  
   .allfeat-cats{display:flex;flex-direction:column;gap:44px;}
   .allfeat-cat h4{
     font-family:'Space Grotesk';font-size:15px;font-weight:600;color:var(--accent);
@@ -427,8 +450,30 @@
   .allfeat-item svg{flex-shrink:0;margin-top:2px;color:var(--accent);}
   .allfeat-item strong{color:var(--text);display:block;margin-bottom:3px;font-weight:600;}
 
-  
   .price-note{font-size:12.5px;color:var(--muted);margin-top:8px;text-align:center;}
+
+  .download-panel{
+    background:var(--panel); border:1px solid var(--border-soft); border-radius:22px;
+    padding:44px; display:grid; grid-template-columns:0.95fr 1.05fr; gap:48px; align-items:center;
+  }
+  .download-shot{
+    border-radius:14px; overflow:hidden; border:1px solid var(--border-soft);
+    box-shadow:0 30px 70px -24px rgba(0,0,0,0.65), 0 0 0 1px rgba(177,92,255,0.06);
+  }
+  .download-shot img{width:100%;display:block;}
+  .download-official-btn{width:100%; justify-content:center; margin-top:6px;}
+  .download-note{
+    background:rgba(177,92,255,0.08); border:1px solid rgba(177,92,255,0.28); border-radius:14px;
+    padding:16px 18px; font-size:13.5px; color:#D7CFE8; line-height:1.6; margin-top:18px;
+  }
+  .download-note strong{color:var(--text);}
+  .download-warn{
+    background:rgba(255,159,67,0.08); border:1px solid rgba(255,159,67,0.3); border-radius:14px;
+    padding:16px 18px; font-size:13.5px; color:#F1D8B8; line-height:1.6; margin-top:12px;
+  }
+  @media (max-width:900px){
+    .download-panel{grid-template-columns:1fr; padding:28px;}
+  }
 </style>
 </head>
 <body>
@@ -445,6 +490,7 @@
       <a href="#features">Funciones</a>
       <a href="#proceso">Cómo funciona</a>
       <a href="#planes">Planes</a>
+      <a href="#descarga">Descarga</a>
       <a href="#faq">Preguntas</a>
     </div>
     <div class="nav-cta">
@@ -453,12 +499,10 @@
     </div>
   </nav>
 </header>
-
-
+  
 <a href="#" class="wa-float btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener noreferrer">
   <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.37 3 3.98 8.39 3.98 15.06c0 2.2.58 4.29 1.68 6.16L3 29l7.98-2.6a12.05 12.05 0 0 0 5.06 1.12h.01c6.67 0 12.06-5.39 12.06-12.06C28.11 8.39 22.72 3 16.04 3Zm0 21.94h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.75 1.22 1.23-3.66-.24-.38a9.87 9.87 0 0 1-1.52-5.27c0-5.46 4.45-9.9 9.91-9.9 2.65 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.91 9.9v-.03Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>
 </a>
-
 
 <section class="hero">
   <div class="container hero-grid">
@@ -489,7 +533,6 @@
   </div>
 </section>
 
-
 <section class="logos-strip">
   <div class="container">
     <p>Pensado para talleres que reparan todas las marcas</p>
@@ -503,7 +546,6 @@
   </div>
 </section>
 
-
 <section class="pad" id="features">
   <div class="container">
     <div class="sec-head reveal">
@@ -514,7 +556,6 @@
 
     <div class="feature-showcase">
 
-  
       <div class="feature-row reveal">
         <div class="feature-text">
           <div class="f-num">01 — VISIÓN DEL NEGOCIO</div>
@@ -543,7 +584,6 @@
         </div>
       </div>
 
-      <
       <div class="feature-row rev reveal">
         <div class="feature-text">
           <div class="f-num">02 — FLUJO DE TRABAJO</div>
@@ -571,7 +611,6 @@
           </div>
         </div>
       </div>
-
       
       <div class="feature-row reveal">
         <div class="feature-text">
@@ -601,7 +640,6 @@
         </div>
       </div>
 
-
       <div class="feature-row rev reveal">
         <div class="feature-text">
           <div class="f-num">04 — RELACIÓN CON EL CLIENTE</div>
@@ -630,7 +668,6 @@
         </div>
       </div>
 
- 
       <div class="feature-row reveal">
         <div class="feature-text">
           <div class="f-num">05 — BASE DE CLIENTES</div>
@@ -659,7 +696,6 @@
         </div>
       </div>
 
-      <
       <div class="feature-row rev reveal">
         <div class="feature-text">
           <div class="f-num">06 — PRESUPUESTOS Y FINANZAS</div>
@@ -679,7 +715,7 @@
           <div class="device-frame laptop">
             <div class="laptop-lid">
               <div class="laptop-cam"></div>
-              <div class="screen">
+              <div class="screen screen-doc">
                 <picture><source srcset="img/reporte-pdf.webp" type="image/webp"><img src="img/reporte-pdf.png" alt="Presupuesto en PDF real generado por Delta Code, con QR imprimible" loading="lazy" decoding="async"></picture>
               </div>
             </div>
@@ -691,7 +727,6 @@
     </div>
   </div>
 </section>
-
 
 <section class="pad" style="padding-top:0;">
   <div class="container">
@@ -884,6 +919,41 @@
 </section>
 
 
+<section class="pad" id="descarga">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">Descarga oficial</span>
+      <h2>¿Ya sos cliente? Descargá el instalador acá.</h2>
+      <p>Este es el único canal oficial de descarga de Delta Code. No lo bajes de ningún otro sitio, foro o link que circule por fuera de esta página.</p>
+    </div>
+
+    <div class="download-panel reveal">
+      <div>
+        <div class="download-shot">
+          <img src="img/smartscreen-warning.png" alt="Aviso de Windows SmartScreen que aparece al instalar Delta Code por primera vez" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Space Grotesk';font-size:22px;margin-bottom:12px;">Windows va a mostrarte esta pantalla, y es esperable.</h3>
+        <p class="f-desc" style="margin-bottom:0;">Al abrir el instalador vas a ver el aviso "Windows protegió su PC", con Delta Code como <strong>Editor desconocido</strong>. Esto no significa que el programa tenga un virus: aparece porque Delta Code todavía no compró un certificado de firma de código de Microsoft (un trámite pago, independiente de la seguridad real del software), algo muy común en aplicaciones de empresas chicas o independientes.</p>
+
+        <div class="download-note">
+          Para instalarlo, hacé clic en <strong>"Más información"</strong> (o abrí el detalle del aviso) y después en <strong>"Ejecutar de todas formas"</strong>. Es seguro hacerlo siempre que el instalador venga de este link oficial.
+        </div>
+        <div class="download-warn">
+          Si alguien te pasó un instalador de Delta Code por otro medio (un link acortado, un grupo, otro sitio web), no lo abras. Descargalo siempre desde acá o pedilo directo por WhatsApp.
+        </div>
+
+        <a href="https://www.mediafire.com/file/xogcs95xu26nh4g/Delta+Code+Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-font download-official-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar Delta Code
+        </a>
+        <p class="price-note">¿Dudas antes de instalar? <a href="#" class="btn-whatsapp" data-wa-msg="Hola, tengo una duda sobre la instalación de Delta Code" style="color:var(--accent-2);">Escribinos por WhatsApp</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="pad" id="faq">
   <div class="container">
     <div class="sec-head center reveal" style="margin-left:auto;margin-right:auto;">
@@ -919,6 +989,7 @@
         <a href="#features">Funciones</a>
         <a href="#proceso">Cómo funciona</a>
         <a href="#planes">Planes</a>
+        <a href="#descarga">Descarga</a>
       </div>
       <div class="foot-col">
         <h5>Contacto</h5>
@@ -943,7 +1014,7 @@
 <script>
 
 (function(){
-
+ 
   const WA_NUMBERS=['5491127932745','5491157658603'];
   const WA_ICON='<svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.37 3 3.98 8.39 3.98 15.06c0 2.2.58 4.29 1.68 6.16L3 29l7.98-2.6a12.05 12.05 0 0 0 5.06 1.12h.01c6.67 0 12.06-5.39 12.06-12.06C28.11 8.39 22.72 3 16.04 3Zm0 21.94h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.75 1.22 1.23-3.66-.24-.38a9.87 9.87 0 0 1-1.52-5.27c0-5.46 4.45-9.9 9.91-9.9 2.65 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.91 9.9v-.03Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>';
 
@@ -960,7 +1031,6 @@
     }
   });
 })();
-
 
 (function(){
   if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined'){
@@ -1034,7 +1104,6 @@
   });
 })();
 
-
 const benefits=[
   {t:'Reducí tiempos', d:'Menos pasos manuales, más equipos entregados por semana.'},
   {t:'Ordená clientes', d:'Toda la historia de cada cliente a un clic de distancia.'},
@@ -1051,14 +1120,14 @@ benefits.forEach((b,i)=>{
   benGrid.appendChild(el);
 });
 
-
 const faqs=[
   {q:'¿Necesito internet para usar Delta Code?', a:'No. Delta Code funciona 100% offline en la PC del taller. Solo hace falta conexión si activás backups en la nube o buscás actualizaciones, y eso es opcional.'},
   {q:'¿Los datos de mi taller quedan seguros?', a:'Sí. Todo se guarda localmente en tu PC, y podés activar copias de seguridad automáticas locales y en la nube además de exportar tus datos a Excel cuando quieras.'},
   {q:'¿En qué países puedo usarlo?', a:'Delta Code adapta automáticamente el tipo de documento del cliente (DNI, RUT, CURP, Cédula, etc.) para Argentina, Chile, México, Colombia y el resto de Latinoamérica.'},
   {q:'¿Cuántos técnicos pueden usarlo en simultáneo?', a:'Depende del plan elegido: desde 1 usuario en el plan Básico hasta múltiples usuarios con roles y permisos en el plan Pro. Te asesoramos por WhatsApp para elegir el que te conviene.'},
   {q:'¿Qué pasa si cambio de PC?', a:'La licencia tiene firma criptográfica y está atada al equipo, así que no se puede clonar ni reutilizar libremente. Escribinos por WhatsApp y te ayudamos a migrarla.'},
-  {q:'¿Ofrecen soporte en español?', a:'Sí, todo nuestro soporte es en español y está disponible por WhatsApp y email.'}
+  {q:'¿Ofrecen soporte en español?', a:'Sí, todo nuestro soporte es en español y está disponible por WhatsApp y email.'},
+  {q:'Windows me muestra "Editor desconocido", ¿es seguro instalarlo?', a:'Sí. Ese aviso de SmartScreen aparece porque todavía no tenemos el certificado de firma de código de Microsoft, no porque el programa sea inseguro. Descargalo siempre desde el link oficial de esta página y hacé clic en "Ejecutar de todas formas".'}
 ];
 const faqList=document.getElementById('faqList');
 faqs.forEach(f=>{
@@ -1082,7 +1151,6 @@ faqList.addEventListener('click',e=>{
     answer.style.maxHeight=answer.scrollHeight+'px';
   }
 });
-
 
 if(typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
   gsap.registerPlugin(ScrollTrigger);
