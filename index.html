@@ -113,7 +113,54 @@
     .logo .logo-text{display:none;}
     .nav-cta .btn-sm{padding:9px 14px;font-size:12.5px;}
   }
-  @media (max-width:900px){.navlinks{display:none;}}
+  @media (max-width:900px){.navlinks{display:none;} .nav-cta .btn-ghost{display:none;}}
+
+  /* ===== Menú lateral (mobile) ===== */
+  .menu-toggle{
+    display:none; width:38px;height:38px;border-radius:9px;flex-shrink:0;
+    background:rgba(255,255,255,0.02); border:1px solid var(--border-soft);
+    align-items:center;justify-content:center;gap:5px;flex-direction:column;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .menu-toggle span{width:16px;height:2px;border-radius:2px;background:var(--text);transition:transform .3s,opacity .3s,background .3s;}
+  .menu-toggle.active{border-color:var(--accent);}
+  .menu-toggle.active span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+  .menu-toggle.active span:nth-child(2){opacity:0;}
+  .menu-toggle.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+  @media (max-width:900px){.menu-toggle{display:flex;}}
+
+  .drawer-overlay{
+    position:fixed;inset:0;z-index:250;background:rgba(6,3,12,0.6);backdrop-filter:blur(3px);
+    opacity:0;visibility:hidden;transition:opacity .35s;
+  }
+  .drawer-overlay.open{opacity:1;visibility:visible;}
+
+  .mobile-drawer{
+    position:fixed;top:0;right:0;bottom:0;z-index:300;
+    width:min(82vw,340px);
+    background:linear-gradient(180deg,#140B24,#0C0716);
+    border-left:1px solid var(--border);
+    box-shadow:-30px 0 70px -20px rgba(0,0,0,0.6);
+    transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1);
+    display:flex;flex-direction:column;
+    padding:22px 26px calc(26px + env(safe-area-inset-bottom,0px));
+    overflow-y:auto;
+  }
+  .mobile-drawer.open{transform:translateX(0);}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:38px;}
+  .drawer-close{
+    width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.03);
+    border:1px solid var(--border-soft);color:var(--text);display:flex;align-items:center;justify-content:center;
+  }
+  .drawer-links{display:flex;flex-direction:column;gap:4px;margin-bottom:32px;}
+  .drawer-links a{
+    font-family:'Space Grotesk';font-size:19px;font-weight:500;color:var(--text);
+    padding:14px 6px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;
+  }
+  .drawer-links a svg{color:var(--muted);}
+  .drawer-cta{display:flex;flex-direction:column;gap:12px;margin-top:auto;}
+  .drawer-cta .btn{width:100%;}
+  body.drawer-lock{overflow:hidden;}
 
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -496,9 +543,36 @@
     <div class="nav-cta">
       <a href="#planes" class="btn btn-ghost btn-sm">Ver planes</a>
       <a href="#" class="btn btn-primary btn-sm btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">WhatsApp</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileDrawer">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 </header>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="logo"><span class="logo-mark"><picture><source srcset="img/logo-delta-code.webp" type="image/webp"><img src="img/logo-delta-code.png" alt="Delta Code" loading="lazy" decoding="async"></picture></span><span class="logo-text">Delta Code</span></div>
+    <button class="drawer-close" id="drawerClose" aria-label="Cerrar menú">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-links">
+    <a href="#features">Funciones <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    <a href="#proceso">Cómo funciona <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    <a href="#planes">Planes <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    <a href="#descarga">Descarga <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    <a href="#faq">Preguntas <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+  </nav>
+  <div class="drawer-cta">
+    <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">Hablar por WhatsApp</a>
+    <a href="https://www.mediafire.com/file/xogcs95xu26nh4g/Delta+Code+Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-font">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Descargar
+    </a>
+  </div>
+</aside>
   
 <a href="#" class="wa-float btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener noreferrer">
   <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.37 3 3.98 8.39 3.98 15.06c0 2.2.58 4.29 1.68 6.16L3 29l7.98-2.6a12.05 12.05 0 0 0 5.06 1.12h.01c6.67 0 12.06-5.39 12.06-12.06C28.11 8.39 22.72 3 16.04 3Zm0 21.94h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.75 1.22 1.23-3.66-.24-.38a9.87 9.87 0 0 1-1.52-5.27c0-5.46 4.45-9.9 9.91-9.9 2.65 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.91 9.9v-.03Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>
@@ -513,6 +587,10 @@
       <div class="hero-actions reveal">
         <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">Hablar por WhatsApp</a>
         <a href="#features" class="btn btn-ghost btn-font">Ver funciones</a>
+        <a href="https://www.mediafire.com/file/xogcs95xu26nh4g/Delta+Code+Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-font">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar
+        </a>
       </div>
       <div class="hero-meta reveal">
         <div><strong>100% Offline</strong>tus datos quedan en tu PC</div>
@@ -1012,6 +1090,33 @@
 </footer>
 
 <script>
+
+/* ================= menú lateral (mobile) ================= */
+(function(){
+  const toggle=document.getElementById('menuToggle');
+  const drawer=document.getElementById('mobileDrawer');
+  const overlay=document.getElementById('drawerOverlay');
+  const closeBtn=document.getElementById('drawerClose');
+  if(!toggle||!drawer||!overlay) return;
+
+  function openDrawer(){
+    drawer.classList.add('open'); overlay.classList.add('open');
+    document.body.classList.add('drawer-lock');
+    toggle.classList.add('active'); toggle.setAttribute('aria-expanded','true');
+    drawer.setAttribute('aria-hidden','false');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open'); overlay.classList.remove('open');
+    document.body.classList.remove('drawer-lock');
+    toggle.classList.remove('active'); toggle.setAttribute('aria-expanded','false');
+    drawer.setAttribute('aria-hidden','true');
+  }
+  toggle.addEventListener('click',()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeDrawer));
+  window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
+})();
 
 (function(){
  
