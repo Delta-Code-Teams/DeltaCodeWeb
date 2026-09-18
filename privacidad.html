@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — Delta Code</title>
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090511; --panel:#110A1F; --text:#F3EFFB; --muted:#9C93B5;
+    --accent:#B15CFF; --border-soft:rgba(177,92,255,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{overflow-x:clip;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; line-height:1.7; font-size:15.5px;
+    max-width:100vw; overflow-x:hidden;
+  }
+  a{color:var(--accent);}
+  header{
+    border-bottom:1px solid var(--border-soft); padding:18px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  header .logo{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; text-decoration:none; color:var(--text);}
+  header .logo img{width:30px;height:30px;}
+  header a.back{color:var(--muted); font-size:14px; text-decoration:none;}
+  header a.back:hover{color:var(--text);}
+  .wrap{max-width:760px; margin:0 auto; padding:56px 24px 100px;}
+  h1{font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,5vw,38px); margin-bottom:8px;}
+  .updated{color:var(--muted); font-size:13.5px; margin-bottom:44px;}
+  h2{font-family:'Space Grotesk',sans-serif; font-size:19px; margin-top:40px; margin-bottom:12px; color:var(--text);}
+  p, li{color:#CFC7E2;}
+  ul{padding-left:20px;}
+  li{margin-bottom:8px;}
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14px;}
+  th, td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--border-soft); color:#CFC7E2;}
+  th{color:var(--text); font-weight:600;}
+  footer{border-top:1px solid var(--border-soft); padding:28px 24px; text-align:center; color:var(--muted); font-size:13px;}
+  footer a{color:var(--muted); text-decoration:none; margin:0 8px;}
+  footer a:hover{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo"><img src="img/logo-delta-code.png" alt="Delta Code"> Delta Code</a>
+  <a href="index.html" class="back">← Volver al sitio</a>
+</header>
+
+<div class="wrap">
+  <h1>Política de Privacidad</h1>
+  <p class="updated">Última actualización: 18 de septiembre de 2026</p>
+
+  <h2>1. Alcance de esta política</h2>
+  <p>Esta política explica qué datos procesa el software Delta Code en la computadora donde está instalado, qué información sale de esa PC hacia servicios de terceros (y en qué casos), y qué datos manejamos nosotros como empresa a través de este sitio web y nuestros canales de contacto (WhatsApp, email).</p>
+
+  <h2>2. Datos que procesa el software, guardados en tu propia PC</h2>
+  <p>Delta Code guarda toda la información operativa del taller de forma local, en la carpeta de datos de la aplicación en la PC donde está instalado — no en nuestros servidores. Esto incluye, entre otros:</p>
+  <table>
+    <tr><th>Dato</th><th>Para qué se usa</th></tr>
+    <tr><td>Datos de clientes (nombre, teléfono, documento de identidad)</td><td>Fichas de cliente, presupuestos e historial</td></tr>
+    <tr><td>Datos del equipo (marca, modelo, IMEI, falla, patrón/PIN de desbloqueo)</td><td>Seguimiento de la reparación</td></tr>
+    <tr><td>Fotos del equipo</td><td>Registro visual del estado del equipo al ingresar/entregar</td></tr>
+    <tr><td>Movimientos de caja, presupuestos y stock</td><td>Reportes financieros y control de inventario del taller</td></tr>
+    <tr><td>Usuarios del sistema (nombre de usuario, contraseña cifrada, PIN de recuperación cifrado)</td><td>Acceso al sistema por parte de administradores y técnicos</td></tr>
+    <tr><td>Registro de auditoría</td><td>Historial de qué usuario hizo cada acción dentro del sistema</td></tr>
+  </table>
+  <p>Como responsable del taller, vos sos quien administra y es el único Responsable de la Base de Datos frente a tus propios clientes conforme a la Ley N° 25.326. Al utilizar Delta Code, declarás contar con el consentimiento previo e informado de tus clientes para cargar sus datos en el sistema.</p>
+
+  <h2>3. Identificación del equipo para validar la licencia</h2>
+  <p>Para evitar que una misma licencia se use en más equipos de los contratados, el software genera un identificador único de la PC (a partir de datos como el número de serie del equipo, obtenidos con herramientas del propio sistema operativo Windows). Ese identificador no sale de tu computadora: se usa únicamente para validar la licencia de forma local, contra la clave que se te entregó al comprar.</p>
+
+  <h2>4. Comunicación por WhatsApp</h2>
+  <p>El software puede generar mensajes prellenados (presupuestos, avisos de "equipo listo", encuestas de satisfacción) para enviar por WhatsApp. Según cómo esté configurado, esto puede hacerse abriendo WhatsApp Web/Escritorio con el mensaje ya cargado (vos decidís si lo enviás), o de forma automática si el taller configuró credenciales propias de la API de WhatsApp Business. En ese último caso, el envío pasa por los servidores de Meta/WhatsApp conforme a su propia <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">política de privacidad</a>.</p>
+
+  <h2>5. Encuestas de satisfacción y reseñas</h2>
+  <p>Si el taller activa la función de encuesta automática, al entregar un equipo se le puede enviar al cliente un link para calificar la atención. Ese link abre una página liviana servida temporalmente desde la propia PC del taller, dentro de la red local/Wi-Fi, y la respuesta (puntuación y comentario) queda guardada en la base de datos local del taller. Si el cliente califica con buena puntuación, se le puede ofrecer además un acceso directo para dejar una reseña en Google, si el taller configuró esa opción.</p>
+
+  <h2>6. Subida de fotos por Wi-Fi</h2>
+  <p>La función para sacarle fotos a un equipo desde el celular del técnico levanta temporalmente un pequeño servidor dentro de la red Wi-Fi local del taller, únicamente mientras esa ventana está abierta, para recibir las fotos y guardarlas en la base local. Ese servidor no es accesible desde fuera de la red local del taller y se apaga automáticamente al cerrar la ventana.</p>
+
+  <h2>7. Presencia en Discord (opcional)</h2>
+  <p>Si el taller tiene la aplicación de Discord abierta en la misma PC, Delta Code puede mostrar de forma opcional un estado tipo "Trabajando en [Nombre del Taller]" en el perfil de Discord de quien está usando el sistema. Para esto, el nombre configurado del taller se envía a los servidores de Discord Inc., conforme a la <a href="https://discord.com/privacy" target="_blank" rel="noopener noreferrer">política de privacidad</a> propia de Discord. Esta función no envía ningún otro dato del taller ni de sus clientes, y se puede desactivar no teniendo Discord abierto.</p>
+
+  <h2>8. Copias de seguridad (backups)</h2>
+  <p>El software genera copias de seguridad automáticas de forma local, en la misma PC. Si además activás la opción de backup en una carpeta sincronizada con la nube (por ejemplo Google Drive, OneDrive o Dropbox instalados en esa PC), la copia se sube a través de esos servicios, conforme a sus propias políticas de privacidad. Delta Code no tiene servidores propios de backup: el destino en la nube es siempre uno que vos elegís y controlás.</p>
+
+  <h2>9. Datos que recolectamos nosotros como empresa</h2>
+  <p>A través del sitio web y de WhatsApp/email, podemos recibir:</p>
+  <ul>
+    <li>Tu nombre, número de WhatsApp y/o email, cuando nos escribís para consultar o comprar.</li>
+    <li>Datos de facturación si corresponde a la licencia contratada.</li>
+    <li>Información técnica básica y no identificable sobre el uso del sitio (por ejemplo, a través de estadísticas de visitas, si las tuviéramos configuradas).</li>
+  </ul>
+  <p><strong>Retención de datos:</strong> Conservamos tus datos de contacto mientras mantengas una licencia activa con nosotros o hasta que solicites su eliminación. Los datos de facturación se conservan por el tiempo que exijan las leyes fiscales vigentes (generalmente 10 años).</p>
+  <p><strong>Cookies:</strong> Nuestro sitio web puede utilizar cookies técnicas estrictamente necesarias para su funcionamiento. Si utilizamos herramientas de analítica para entender el tráfico del sitio, la información recolectada es anónima y agregada. Este sitio no usa formularios de contacto propios ni cookies de terceros para publicidad intrusiva.</p>
+
+  <h2>10. Con quién se comparten datos</h2>
+  <p>No vendemos ni compartimos tus datos de contacto con terceros para fines publicitarios. Los únicos terceros involucrados son los que vos mismo elegís activar dentro del software: WhatsApp/Meta, Discord, y el proveedor de nube que elijas para backups. Además, podemos compartir datos cuando sea necesario para prestar el servicio (por ejemplo, con proveedores de procesamiento de pagos como Mercado Pago o servicios de facturación electrónica).</p>
+  <p><strong>Transferencia internacional:</strong> Al utilizar las integraciones opcionales del software (WhatsApp, Discord o servicios en la nube para backups), tené en cuenta que esa información puede viajar y ser procesada en servidores ubicados fuera de tu país de residencia (por ejemplo, en Estados Unidos), quedando sujeta a las leyes de privacidad de esas jurisdicciones.</p>
+
+  <h2>11. Tus derechos</h2>
+  <p>Podés pedirnos en cualquier momento acceder, corregir o eliminar los datos de contacto que tengamos sobre vos, escribiendo a <a href="mailto:deltacodeteams@gmail.com">deltacodeteams@gmail.com</a> responderemos a las solicitudes de acceso dentro de los 10 días corridos, y a las de rectificación, actualización o supresión dentro de los 5 días hábiles de recibida la solicitud. Para los datos que administrás vos mismo dentro del software (de tus propios clientes), la gestión y responsabilidad es tuya como responsable del taller. Todas las funciones descriptas en los puntos 4 a 8 son opcionales y se pueden desactivar desde la Configuración del sistema.</p>
+  <p><strong>Para usuarios en Argentina:</strong> El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326. La Agencia de Acceso a la Información Pública (AAIP), en su carácter de Órgano de Control de la Ley N° 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por el incumplimiento de las normas vigentes en materia de protección de datos personales.</p>
+
+  <h2>12. Seguridad</h2>
+  <p>Los datos del software quedan almacenados localmente en tu PC, no en un servidor expuesto a internet. Las contraseñas de los usuarios y el PIN de recuperación se guardan cifrados, nunca en texto plano. El sistema de licencias usa firma criptográfica para evitar clonado. Si activás backups en la nube, esa copia depende de la seguridad del proveedor que elijas. Aun así, ningún sistema es 100% infalible: te recomendamos mantener actualizado tu antivirus y hacer copias de seguridad periódicas.</p>
+
+  <h2>13. Menores de edad</h2>
+  <p>Delta Code es un software de gestión comercial, dirigido a talleres y sus responsables, no a menores de edad.</p>
+
+  <h2>14. Cambios en esta política</h2>
+  <p>Podemos actualizar esta política cuando haga falta, en particular cada vez que se agregue una función que cambie qué datos se procesan o hacia dónde viajan. La fecha de "última actualización" en la parte superior refleja la versión vigente.</p>
+
+  <h2>15. Contacto</h2>
+  <p>Ante cualquier consulta sobre privacidad, escribinos a <a href="mailto:deltacodeteams@gmail.com">deltacodeteams@gmail.com</a> o por WhatsApp desde el sitio.</p>
+</div>
+
+<footer>
+  <div>© 2026 Delta Code · <a href="index.html">Inicio</a> · <a href="terminos.html">Términos y Condiciones</a></div>
+</footer>
+
+</body>
+</html>
