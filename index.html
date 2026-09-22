@@ -51,9 +51,7 @@
 
   a{color:inherit;text-decoration:none;}
   img{max-width:100%;display:block;}
-  picture{display:contents;} 
-
-  #cursor-dot, #cursor-ring{
+  picture{display:contents;} #cursor-dot, #cursor-ring{
     position:fixed; top:0; left:0; pointer-events:none; z-index:9999;
     transform:translate(-50%,-50%);
     border-radius:50%;
@@ -110,12 +108,10 @@
   nav{flex-wrap:nowrap;}
   .logo{min-width:0;flex-shrink:1;}
   @media (max-width:420px){
-    .logo .logo-text{display:none;}
-    .nav-cta .btn-sm{padding:9px 14px;font-size:12.5px;}
+    .logo .logo-text{display:none;} .nav-cta .btn-sm{padding:9px 14px;font-size:12.5px;}
   }
   @media (max-width:900px){.navlinks{display:none;} .nav-cta .btn-ghost{display:none;}}
 
-  /* ===== Menú lateral (mobile) ===== */
   .menu-toggle{
     display:none; width:38px;height:38px;border-radius:9px;flex-shrink:0;
     background:rgba(255,255,255,0.02); border:1px solid var(--border-soft);
@@ -423,29 +419,23 @@
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
 
   .brand-logo {
-    height: 28px; 
-    width: auto;
+    height: 28px; width: auto;
     object-fit: contain;
     opacity: 0.5;
-
     filter: grayscale(100%) brightness(200%); 
     transition: all 0.3s ease;
   }
   .brand-logo:hover {
     opacity: 1;
-    filter: grayscale(0%) brightness(100%); 
-    transform: translateY(-3px);
+    filter: grayscale(0%) brightness(100%); transform: translateY(-3px);
   }
 
   @media (max-width: 600px) {
-
     .brand-logo { height: 20px; }
     .logos-row { gap: 20px; justify-content: center; }
 
     nav { padding: 16px 20px; }
-    .nav-cta .btn-ghost { display: none; } 
-    
-    .container { padding: 0 20px; } 
+    .nav-cta .btn-ghost { display: none; } .container { padding: 0 20px; } 
     .hero { padding: 130px 0 50px; }
 
     .foot-grid { 
@@ -478,7 +468,7 @@
     50%{box-shadow:0 10px 30px -6px rgba(37,211,102,0.65), 0 0 0 10px rgba(37,211,102,0);}
   }
   @media (max-width:600px){ .wa-float{width:54px;height:54px;right:16px;bottom:16px;} .wa-float svg{width:27px;height:27px;} }
-  
+
   .allfeat-cats{display:flex;flex-direction:column;gap:44px;}
   .allfeat-cat h4{
     font-family:'Space Grotesk';font-size:15px;font-weight:600;color:var(--accent);
@@ -521,6 +511,37 @@
   @media (max-width:900px){
     .download-panel{grid-template-columns:1fr; padding:28px;}
   }
+  .rev-order-1{order:1;} .rev-order-2{order:2;}
+  @media (max-width:900px){ .rev-order-1{order:-1;} }
+
+  .vt-badge{display:flex; align-items:center; gap:18px;}
+  .vt-ring{
+    flex-shrink:0; width:64px;height:64px;border-radius:50%;
+    border:3px solid #37D67A; display:flex; align-items:center; justify-content:center;
+    color:#37D67A;
+  }
+  .vt-badge-title{font-weight:600; color:var(--text); font-size:15px; margin-bottom:4px;}
+  .vt-badge-sub{font-size:12.5px; color:var(--muted); line-height:1.5;}
+
+  .sysreq{
+    margin-top:28px; background:var(--panel); border:1px solid var(--border-soft); border-radius:20px; padding:28px 32px;
+  }
+  .sysreq h4{font-family:'Space Grotesk';font-size:15px;color:var(--accent);letter-spacing:.03em;margin-bottom:18px;}
+  .sysreq-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media (max-width:900px){ .sysreq-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .sysreq-grid{grid-template-columns:1fr;} }
+  .sysreq-grid > div{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:#D7CFE8;}
+  .sysreq-grid svg{flex-shrink:0; color:var(--accent); margin-top:2px;}
+  .sysreq-grid strong{display:block; color:var(--text); font-weight:600; margin-bottom:2px;}
+
+  .support-cta{
+    margin-top:48px; text-align:center; background:var(--panel); border:1px solid var(--border-soft);
+    border-radius:20px; padding:36px 28px;
+  }
+  .support-cta h4{font-family:'Space Grotesk'; font-size:19px; margin-bottom:8px;}
+  .support-cta p{color:var(--muted); font-size:14px; margin-bottom:22px;}
+  .support-cta-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  @media (max-width:520px){ .support-cta-actions{flex-direction:column;} .support-cta-actions .btn{width:100%;justify-content:center;} }
 </style>
 </head>
 <body>
@@ -542,6 +563,10 @@
     </div>
     <div class="nav-cta">
       <a href="#planes" class="btn btn-ghost btn-sm">Ver planes</a>
+      <a href="https://www.mediafire.com/file/kgvy96ic8mjmjz0/Delta+Code+Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar
+      </a>
       <a href="#" class="btn btn-primary btn-sm btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">WhatsApp</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileDrawer">
         <span></span><span></span><span></span>
@@ -573,7 +598,7 @@
     </a>
   </div>
 </aside>
-  
+
 <a href="#" class="wa-float btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener noreferrer">
   <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.37 3 3.98 8.39 3.98 15.06c0 2.2.58 4.29 1.68 6.16L3 29l7.98-2.6a12.05 12.05 0 0 0 5.06 1.12h.01c6.67 0 12.06-5.39 12.06-12.06C28.11 8.39 22.72 3 16.04 3Zm0 21.94h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.75 1.22 1.23-3.66-.24-.38a9.87 9.87 0 0 1-1.52-5.27c0-5.46 4.45-9.9 9.91-9.9 2.65 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.91 9.9v-.03Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>
 </a>
@@ -587,10 +612,6 @@
       <div class="hero-actions reveal">
         <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">Hablar por WhatsApp</a>
         <a href="#features" class="btn btn-ghost btn-font">Ver funciones</a>
-        <a href="https://www.mediafire.com/file/kgvy96ic8mjmjz0/Delta+Code+Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-font">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Descargar
-        </a>
       </div>
       <div class="hero-meta reveal">
         <div><strong>100% Offline</strong>tus datos quedan en tu PC</div>
@@ -689,7 +710,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="feature-row reveal">
         <div class="feature-text">
           <div class="f-num">03 — COMUNICACIÓN CON EL CLIENTE</div>
@@ -793,7 +814,7 @@
           <div class="device-frame laptop">
             <div class="laptop-lid">
               <div class="laptop-cam"></div>
-              <div class="screen">
+              <div class="screen screen-doc">
                 <picture><source srcset="img/reporte-pdf.webp" type="image/webp"><img src="img/reporte-pdf.png" alt="Presupuesto en PDF real generado por Delta Code, con QR imprimible" loading="lazy" decoding="async"></picture>
               </div>
             </div>
@@ -879,7 +900,6 @@
   </div>
 </section>
 
-
 <section class="pad" id="proceso">
   <div class="container">
     <div class="sec-head reveal">
@@ -910,7 +930,6 @@
     <div class="benefits-grid reveal" id="benGrid"></div>
   </div>
 </section>
-
 
 <section class="pad">
   <div class="container">
@@ -945,7 +964,6 @@
     </div>
   </div>
 </section>
-
 
 <section class="pad" id="planes">
   <div class="container">
@@ -996,7 +1014,6 @@
   </div>
 </section>
 
-
 <section class="pad" id="descarga">
   <div class="container">
     <div class="sec-head reveal">
@@ -1029,6 +1046,38 @@
         <p class="price-note">¿Dudas antes de instalar? <a href="#" class="btn-whatsapp" data-wa-msg="Hola, tengo una duda sobre la instalación de Delta Code" style="color:var(--accent-2);">Escribinos por WhatsApp</a>.</p>
       </div>
     </div>
+
+    <div class="download-panel reveal" style="margin-top:28px;grid-template-columns:1fr;">
+      <div class="rev-order-2">
+        <div class="vt-badge">
+          <div class="vt-ring">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div>
+            <div class="vt-badge-title">Analizado por los principales antivirus del mercado</div>
+            <div class="vt-badge-sub">Escaneado en VirusTotal, el servicio de Google que analiza archivos con 69 motores antivirus a la vez, incluidos Microsoft Defender, Kaspersky, Avast, Bitdefender y ESET.</div>
+          </div>
+        </div>
+        <h3 style="font-family:'Space Grotesk';font-size:22px;margin:22px 0 12px;">No confíes en nuestra palabra, confiá en el análisis público.</h3>
+        <p class="f-desc">No te mostramos una captura fija con un número, porque cambia en cada actualización del instalador. Mirá siempre el resultado actual, motor por motor, en el link de abajo — no es algo que podamos truquear.</p>
+        <p class="f-desc" style="margin-bottom:0;">Es normal que, de vez en cuando, algún motor antivirus chico y poco conocido marque instaladores de software independiente con una etiqueta genérica ("posible troyano/offloader") aunque no lo sean — les pasa a la mayoría de las apps de empresas sin certificado de firma digital todavía. Lo que importa es que los motores principales lo reporten limpio.</p>
+        <a href="https://www.virustotal.com/gui/file/ee64122b44625fe45d17f07d0d012fb3a0a670c5a6daa44f4d8617175a14fdf7" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-font" style="margin-top:18px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Ver el análisis actualizado en VirusTotal.com
+        </a>
+      </div>
+    </div>
+
+    <div class="sysreq reveal">
+      <h4>Requisitos del sistema</h4>
+      <div class="sysreq-grid">
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg><div><strong>Windows 10 u 11</strong>64 bits</div></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/></svg><div><strong>4 GB de RAM</strong>o más, recomendado</div></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/></svg><div><strong>~500 MB libres</strong>en disco para instalar</div></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg><div><strong>Internet opcional</strong>solo para backup en la nube y actualizaciones</div></div>
+      </div>
+      <p class="price-note" style="margin-top:14px;">* Requisitos de referencia — si tu PC es de los últimos años, andá tranquilo que corre bien.</p>
+    </div>
   </div>
 </section>
 
@@ -1039,9 +1088,17 @@
       <h2>Todo lo que necesitás saber.</h2>
     </div>
     <div class="faq-list reveal" id="faqList"></div>
+
+    <div class="support-cta reveal">
+      <h4>¿Tenés una sugerencia o encontraste un error?</h4>
+      <p>Nos ayuda muchísimo que nos cuentes — respondemos directo por WhatsApp.</p>
+      <div class="support-cta-actions">
+        <a href="#" class="btn btn-ghost btn-font btn-whatsapp" data-wa-msg="Hola, quiero dejarles una sugerencia sobre Delta Code:">Enviar una sugerencia</a>
+        <a href="#" class="btn btn-ghost btn-font btn-whatsapp" data-wa-msg="Hola, quiero reportar un bug en Delta Code. Esto es lo que encontré:">Reportar un bug</a>
+      </div>
+    </div>
   </div>
 </section>
-
 
 <section class="pad" id="demo">
   <div class="container">
@@ -1092,6 +1149,24 @@
 <script>
 
 (function(){
+  const WA_NUMBERS=['5491127932745','5491157658603'];
+  const WA_ICON='<svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.37 3 3.98 8.39 3.98 15.06c0 2.2.58 4.29 1.68 6.16L3 29l7.98-2.6a12.05 12.05 0 0 0 5.06 1.12h.01c6.67 0 12.06-5.39 12.06-12.06C28.11 8.39 22.72 3 16.04 3Zm0 21.94h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.75 1.22 1.23-3.66-.24-.38a9.87 9.87 0 0 1-1.52-5.27c0-5.46 4.45-9.9 9.91-9.9 2.65 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.91 9.9v-.03Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>';
+
+  function pickNumber(){ return WA_NUMBERS[Math.floor(Math.random()*WA_NUMBERS.length)]; }
+
+  document.querySelectorAll('.btn-whatsapp').forEach(el=>{
+    const msg=el.getAttribute('data-wa-msg')||'Hola, quiero info sobre Delta Code';
+    el.href=`https://wa.me/${pickNumber()}?text=${encodeURIComponent(msg)}`;
+    el.target='_blank';
+    el.rel='noopener noreferrer';
+    const isIconOnly = el.getAttribute('aria-label')==='WhatsApp';
+    if(!el.classList.contains('wa-float')){
+      el.innerHTML = isIconOnly ? WA_ICON : (WA_ICON + '<span>'+el.textContent.trim()+'</span>');
+    }
+  });
+})();
+
+(function(){
   const toggle=document.getElementById('menuToggle');
   const drawer=document.getElementById('mobileDrawer');
   const overlay=document.getElementById('drawerOverlay');
@@ -1118,25 +1193,6 @@
 })();
 
 (function(){
- 
-  const WA_NUMBERS=['5491127932745','5491157658603'];
-  const WA_ICON='<svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.37 3 3.98 8.39 3.98 15.06c0 2.2.58 4.29 1.68 6.16L3 29l7.98-2.6a12.05 12.05 0 0 0 5.06 1.12h.01c6.67 0 12.06-5.39 12.06-12.06C28.11 8.39 22.72 3 16.04 3Zm0 21.94h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.75 1.22 1.23-3.66-.24-.38a9.87 9.87 0 0 1-1.52-5.27c0-5.46 4.45-9.9 9.91-9.9 2.65 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.91 9.9v-.03Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>';
-
-  function pickNumber(){ return WA_NUMBERS[Math.floor(Math.random()*WA_NUMBERS.length)]; }
-
-  document.querySelectorAll('.btn-whatsapp').forEach(el=>{
-    const msg=el.getAttribute('data-wa-msg')||'Hola, quiero info sobre Delta Code';
-    el.href=`https://wa.me/${pickNumber()}?text=${encodeURIComponent(msg)}`;
-    el.target='_blank';
-    el.rel='noopener noreferrer';
-    const isIconOnly = el.getAttribute('aria-label')==='WhatsApp';
-    if(!el.classList.contains('wa-float')){
-      el.innerHTML = isIconOnly ? WA_ICON : (WA_ICON + '<span>'+el.textContent.trim()+'</span>');
-    }
-  });
-})();
-
-(function(){
   if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined'){
     document.querySelectorAll('.reveal').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
     document.querySelectorAll('.tl-item').forEach(el=>el.classList.add('on'));
@@ -1157,7 +1213,6 @@
     el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
   });
 })();
-
 
 (function(){
   if(typeof THREE === 'undefined') return;
@@ -1231,7 +1286,8 @@ const faqs=[
   {q:'¿Cuántos técnicos pueden usarlo en simultáneo?', a:'Depende del plan elegido: desde 1 usuario en el plan Básico hasta múltiples usuarios con roles y permisos en el plan Pro. Te asesoramos por WhatsApp para elegir el que te conviene.'},
   {q:'¿Qué pasa si cambio de PC?', a:'La licencia tiene firma criptográfica y está atada al equipo, así que no se puede clonar ni reutilizar libremente. Escribinos por WhatsApp y te ayudamos a migrarla.'},
   {q:'¿Ofrecen soporte en español?', a:'Sí, todo nuestro soporte es en español y está disponible por WhatsApp y email.'},
-  {q:'Windows me muestra "Editor desconocido", ¿es seguro instalarlo?', a:'Sí. Ese aviso de SmartScreen aparece porque todavía no tenemos el certificado de firma de código de Microsoft, no porque el programa sea inseguro. Descargalo siempre desde el link oficial de esta página y hacé clic en "Ejecutar de todas formas".'}
+  {q:'Windows me muestra "Editor desconocido", ¿es seguro instalarlo?', a:'Sí. Ese aviso de SmartScreen aparece porque todavía no tenemos el certificado de firma de código de Microsoft, no porque el programa sea inseguro. Descargalo siempre desde el link oficial de esta página y hacé clic en "Ejecutar de todas formas".'},
+  {q:'¿Tiene garantía o devolución?', a:'Sí: probás Delta Code gratis durante 14 días completos, sin cargo. Si después de comprarlo te arrepentís, tenés 3 días desde la fecha de compra para pedir el reembolso completo, siempre que el uso haya sido normal (por ejemplo, no vale cargar toda la base de clientes del taller en esos 3 días y después pedir la devolución).'}
 ];
 const faqList=document.getElementById('faqList');
 faqs.forEach(f=>{
