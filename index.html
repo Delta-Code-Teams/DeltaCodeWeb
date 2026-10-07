@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Delta Code — Gestión para talleres de reparación</title>
-<meta name="description" content="Delta Code es un sistema de escritorio para ordenar clientes, equipos, reparaciones, stock y caja en un solo lugar. Pensado para talleres y técnicos.">
-<meta name="theme-color" content="#090511">
+<title>Delta Code — Sistema de gestión para talleres de reparación</title>
+<meta name="description" content="Delta Code es un sistema de escritorio para ordenar clientes, equipos, reparaciones, stock y caja en un solo lugar. Pensado para talleres y técnicos. Funciona sin internet.">
+<meta name="theme-color" content="#121019">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Delta Code — Gestión para talleres de reparación">
-<meta property="og:description" content="Dejá de buscar información entre el cuaderno, Excel y los chats. Tené el taller ordenado en un solo sistema, con funcionamiento local.">
+<meta property="og:title" content="Delta Code — Sistema de gestión para talleres de reparación">
+<meta property="og:description" content="Clientes, equipos, reparaciones, stock y caja en un solo lugar. Funciona 100% local, sin depender de internet.">
 <meta property="og:image" content="img/logo-delta-code.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -17,556 +17,366 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#090511;
-    --panel:#110A1F;
-    --panel-2:#150D24;
-    --accent:#B15CFF;
-    --accent-2:#7A3DFF;
-    --green:#42E8A4;
-    --text:#F5F3FA;
-    --muted:#9C93B3;
-    --border:rgba(177,92,255,0.14);
-    --border-soft:rgba(255,255,255,0.07);
+    --ink:#121019;
+    --ink-2:#1A1724;
+    --ink-3:#201C2C;
+    --brand:#8C52FF;
+    --brand-light:#C3A4FF;
+    --amber:#FF7A3D;
+    --green:#3FB873;
+    --red:#E8604C;
+    --text:#F1ECF7;
+    --muted:#9C92AD;
+    --line:rgba(241,236,247,0.14);
+    --radius:5px;
+    --disp:'Big Shoulders Display',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+    --sans:'IBM Plex Sans',sans-serif;
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
+  *{box-sizing:border-box;}
   html{scroll-behavior:smooth;overflow-x:clip;max-width:100vw;}
   body{
-    max-width:100vw;
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
-    overflow-x:hidden;
-    cursor:none;
+    margin:0; background:var(--ink); color:var(--text);
+    font-family:var(--sans); line-height:1.6; font-size:16px;
+    max-width:100vw; overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
   }
-  ::selection{background:var(--accent);color:#0a0512;}
-
-  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif; letter-spacing:-0.02em;}
-  .btn-font{font-family:'Poppins',sans-serif;}
-
-  a{color:inherit;text-decoration:none;}
   img{max-width:100%;display:block;}
-  picture{display:contents;} #cursor-dot, #cursor-ring{
-    position:fixed; top:0; left:0; pointer-events:none; z-index:9999;
-    transform:translate(-50%,-50%);
-    border-radius:50%;
-    will-change:transform;
-  }
-  #cursor-dot{
-    width:6px;height:6px;background:var(--accent);
-    transition:transform .25s cubic-bezier(.2,.8,.2,1), border-radius .25s, background .25s;
-  }
-  #cursor-ring{width:34px;height:34px;border:1px solid rgba(177,92,255,0.45);transition:width .25s,height .25s,border-color .25s,background .25s;}
-  .cursor-hover #cursor-ring{width:52px;height:52px;background:rgba(177,92,255,0.08);border-color:var(--accent);box-shadow:0 0 22px -4px rgba(177,92,255,0.55);}
-  .cursor-hover #cursor-dot{
-    width:9px;height:9px;background:var(--text);
-    clip-path:polygon(0 0, 100% 38%, 55% 55%, 38% 100%);
-    box-shadow:0 0 8px 1px rgba(245,243,250,0.7);
-  }
-  @media (hover:hover) and (pointer:fine){
-    a,button,input,select,textarea,label,[role="button"],[onclick]{cursor:none;}
-  }
-  @media (hover:none), (max-width:860px){
-    #cursor-dot,#cursor-ring{display:none;}
-    body{cursor:auto;}
-  }
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 28px;}
+  @media (max-width:600px){.container{padding:0 20px;}}
+  ::selection{background:var(--brand);color:#fff;}
 
-  #particles{position:fixed;inset:0;z-index:0;opacity:.55;pointer-events:none;}
+  h1,h2,h3,h4{font-family:var(--disp); font-weight:800; letter-spacing:-0.01em; margin:0; color:var(--text);}
+  h2{font-size:clamp(30px,4.2vw,46px); line-height:1.05;}
+  h3{font-size:22px; line-height:1.15;}
+  p{margin:0;}
 
-  .noise{
-    position:fixed;inset:0;z-index:1;pointer-events:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    mix-blend-mode:overlay;
+  .pad{padding:88px 0;}
+  @media (max-width:700px){.pad{padding:60px 0;}}
+
+  .tag{
+    display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:12.5px;
+    color:var(--brand-light); margin-bottom:16px;
   }
+  .tag::before{content:'';width:7px;height:7px;background:var(--brand);border-radius:1px;transform:rotate(45deg);flex-shrink:0;}
+  .sec-head{max-width:620px; margin-bottom:48px;}
+  .sec-head p{color:var(--muted); font-size:15.5px; margin-top:14px; line-height:1.6;}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
 
-  .container{max-width:1240px;margin:0 auto;padding:0 32px;}
-  section{position:relative;z-index:2;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    padding:13px 22px; border-radius:var(--radius); font-family:var(--sans); font-weight:600; font-size:14.5px;
+    border:1.5px solid transparent; transition:transform .15s, background .2s, border-color .2s;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-primary{background:var(--brand); color:#fff;}
+  .btn-primary:hover{background:#9A64FF;}
+  .btn-ghost{background:transparent; border-color:var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--brand-light);}
+  .btn-sm{padding:9px 16px; font-size:13.5px;}
+  .btn-font{padding:14px 26px; font-size:15px;}
 
   header{
-    position:fixed;top:0;left:0;right:0;z-index:100;
-    backdrop-filter:blur(16px);
-    background:rgba(9,5,17,0.55);
-    border-bottom:1px solid var(--border-soft);
+    position:sticky; top:0; z-index:200; background:rgba(18,16,25,0.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
   }
-  nav{max-width:1240px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;}
-  .logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;}
-  .logo-mark{
-    width:32px;height:32px;border-radius:9px;
-    display:flex;align-items:center;justify-content:center;
-    filter:drop-shadow(0 0 10px rgba(177,92,255,0.55));
-  }
+  nav{max-width:1180px; margin:0 auto; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; gap:20px;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:var(--disp); font-weight:800; font-size:21px; min-width:0; flex-shrink:1;}
+  .logo-mark{width:30px;height:30px;flex-shrink:0;}
   .logo-mark img{width:100%;height:100%;object-fit:contain;}
-  .navlinks{display:flex;gap:34px;font-size:14px;color:var(--muted);}
-  .navlinks a{transition:color .25s;position:relative;}
+  @media (max-width:420px){.logo .logo-text{display:none;}}
+
+  .navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13px; color:var(--muted);}
   .navlinks a:hover{color:var(--text);}
-  .nav-cta{display:flex;gap:14px;align-items:center;flex-shrink:0;}
-  nav{flex-wrap:nowrap;}
-  .logo{min-width:0;flex-shrink:1;}
-  @media (max-width:420px){
-    .logo .logo-text{display:none;} .nav-cta .btn-sm{padding:9px 14px;font-size:12.5px;}
-  }
-  @media (max-width:900px){.navlinks{display:none;} .nav-cta .btn-ghost{display:none;}}
+  @media (max-width:980px){.navlinks{display:none;}}
+
+  .nav-cta{display:flex; gap:10px; align-items:center; flex-shrink:0;}
+  @media (max-width:980px){.nav-cta .btn-ghost{display:none;}}
+  @media (max-width:420px){.nav-cta .btn-sm{padding:9px 13px; font-size:12.5px;}}
 
   .menu-toggle{
-    display:none; width:38px;height:38px;border-radius:9px;flex-shrink:0;
-    background:rgba(255,255,255,0.02); border:1px solid var(--border-soft);
+    display:none; width:38px;height:38px;border-radius:var(--radius);flex-shrink:0;
+    background:transparent; border:1.5px solid var(--line);
     align-items:center;justify-content:center;gap:5px;flex-direction:column;
     -webkit-tap-highlight-color:transparent;
   }
-  .menu-toggle span{width:16px;height:2px;border-radius:2px;background:var(--text);transition:transform .3s,opacity .3s,background .3s;}
-  .menu-toggle.active{border-color:var(--accent);}
+  .menu-toggle span{width:16px;height:2px;background:var(--text);transition:transform .3s,opacity .3s;}
+  .menu-toggle.active{border-color:var(--brand);}
   .menu-toggle.active span:nth-child(1){transform:translateY(6px) rotate(45deg);}
   .menu-toggle.active span:nth-child(2){opacity:0;}
   .menu-toggle.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
-  @media (max-width:900px){.menu-toggle{display:flex;}}
+  @media (max-width:980px){.menu-toggle{display:flex;}}
 
   .drawer-overlay{
-    position:fixed;inset:0;z-index:250;background:rgba(6,3,12,0.6);backdrop-filter:blur(3px);
-    opacity:0;visibility:hidden;transition:opacity .35s;
+    position:fixed;inset:0;z-index:250;background:rgba(10,8,15,0.65);
+    opacity:0;visibility:hidden;transition:opacity .3s;
   }
   .drawer-overlay.open{opacity:1;visibility:visible;}
-
   .mobile-drawer{
-    position:fixed;top:0;right:0;bottom:0;z-index:300;
-    width:min(82vw,340px);
-    background:linear-gradient(180deg,#140B24,#0C0716);
-    border-left:1px solid var(--border);
-    box-shadow:-30px 0 70px -20px rgba(0,0,0,0.6);
-    transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1);
-    display:flex;flex-direction:column;
-    padding:22px 26px calc(26px + env(safe-area-inset-bottom,0px));
+    position:fixed;top:0;right:0;bottom:0;z-index:300;width:min(84vw,340px);
+    background:var(--ink-2); border-left:1px solid var(--line);
+    transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+    display:flex;flex-direction:column; padding:20px 24px calc(24px + env(safe-area-inset-bottom,0px));
     overflow-y:auto;
   }
   .mobile-drawer.open{transform:translateX(0);}
-  .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:38px;}
-  .drawer-close{
-    width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,0.03);
-    border:1px solid var(--border-soft);color:var(--text);display:flex;align-items:center;justify-content:center;
-  }
-  .drawer-links{display:flex;flex-direction:column;gap:4px;margin-bottom:32px;}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px;}
+  .drawer-close{width:34px;height:34px;border-radius:var(--radius);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;}
+  .drawer-links{display:flex;flex-direction:column;margin-bottom:28px;}
   .drawer-links a{
-    font-family:'Space Grotesk';font-size:19px;font-weight:500;color:var(--text);
-    padding:14px 6px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--disp);font-size:21px;font-weight:700;color:var(--text);
+    padding:14px 2px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;
   }
   .drawer-links a svg{color:var(--muted);}
-  .drawer-cta{display:flex;flex-direction:column;gap:12px;margin-top:auto;}
+  .drawer-cta{display:flex;flex-direction:column;gap:10px;margin-top:auto;}
   .drawer-cta .btn{width:100%;}
   body.drawer-lock{overflow:hidden;}
 
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    padding:12px 24px;border-radius:11px;font-size:14px;font-weight:600;
-    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, background .3s, border-color .3s;
-    white-space:nowrap;
-  }
-  .btn-primary{
-    background:linear-gradient(135deg,var(--accent),var(--accent-2));
-    color:#fff; box-shadow:0 8px 30px -8px rgba(177,92,255,0.65);
-  }
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 38px -8px rgba(177,92,255,0.85);}
-  .btn-ghost{
-    border:1px solid var(--border-soft); color:var(--text); background:rgba(255,255,255,0.02);
-  }
-  .btn-ghost:hover{border-color:var(--accent); background:rgba(177,92,255,0.06); transform:translateY(-2px);}
-  .btn-sm{padding:9px 18px;font-size:13px;}
-
-  .hero{padding:180px 0 120px; position:relative;}
-  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;}
-  @media (max-width:980px){.hero-grid{grid-template-columns:1fr;} .hero{padding:150px 0 70px;}}
-
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--green); border:1px solid rgba(66,232,164,0.28);
-    background:rgba(66,232,164,0.06);
-    padding:7px 14px;border-radius:100px; margin-bottom:26px;
-  }
-  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);}
-
-  .hero h1{
-    font-size:clamp(38px,5.2vw,66px);
-    line-height:1.04; font-weight:600;
-    background:linear-gradient(180deg,#fff 30%, #cdbde8 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    margin-bottom:26px;
-  }
-  .hero p.sub{font-size:18px;color:var(--muted);max-width:520px;line-height:1.65;margin-bottom:38px;}
-  .hero-actions{display:flex;gap:16px;margin-bottom:52px;flex-wrap:wrap;}
-  .hero-meta{display:flex;gap:34px;flex-wrap:wrap;}
-  .hero-meta div{font-size:13px;color:var(--muted);}
-  .hero-meta strong{display:block;font-family:'Space Grotesk';font-size:22px;color:var(--text);font-weight:600;}
-
-  .mock-stage{position:relative;perspective:1600px;}
-  .mock-glow{
-    position:absolute; inset:-120px; z-index:0;
-    background:radial-gradient(closest-side, rgba(177,92,255,0.42), rgba(122,61,255,0.12) 55%, transparent 75%);
-    filter:blur(10px); pointer-events:none;
-  }
-  .mock-window{
-    position:relative; z-index:1;
-    transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
-    border-radius:16px;
-    border:1px solid rgba(177,92,255,0.25);
-    background:linear-gradient(160deg,#140B24,#0C0716);
-    box-shadow:0 40px 80px -24px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.03);
-    overflow:hidden;
-  }
-  .mock-window:hover{transform:translateY(-6px); box-shadow:0 50px 100px -24px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.05);}
-  .mock-topbar{
-    display:flex;align-items:center;gap:8px;padding:12px 16px;
-    background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border-soft);
-  }
-  .mock-topbar span{width:9px;height:9px;border-radius:50%;background:#3a3450;}
-  .mock-real-screen{background:#0C0716;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-  .mock-real-screen img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;}
-
-  .logos-strip{padding:50px 0;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
-  .logos-strip p{text-align:center;font-size:13px;color:var(--muted);margin-bottom:30px;letter-spacing:.02em;}
-  .logos-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px 40px;}
-  .logos-row span{font-family:'Space Grotesk';font-weight:600;font-size:17px;color:#B9AFD1;letter-spacing:.01em;transition:color .3s,opacity .3s;}
-  .logos-row span:hover{color:var(--text);opacity:1;}
-
-  .sec-head{max-width:640px;margin-bottom:56px;}
-  .sec-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px;display:block;}
-  .sec-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:600;line-height:1.15;margin-bottom:16px;}
-  .sec-head p{color:var(--muted);font-size:16px;line-height:1.6;}
-  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
-
-  section.pad{padding:120px 0;}
-
-  .feature-showcase{display:flex;flex-direction:column;gap:130px;}
-  .feature-row{display:grid;grid-template-columns:0.92fr 1.08fr;gap:64px;align-items:center;}
-  .feature-row.rev{direction:rtl;}
-  .feature-row.rev > *{direction:ltr;}
-  @media (max-width:940px){.feature-row,.feature-row.rev{grid-template-columns:1fr;direction:ltr;gap:36px;}}
-
-  .f-num{font-family:'Space Grotesk';font-size:12px;color:var(--muted);letter-spacing:.12em;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
-  .f-num::before{content:"";width:26px;height:1px;background:var(--border-soft);}
-  .feat-icon{
-    width:46px;height:46px;border-radius:12px;margin-bottom:20px;
-    background:rgba(177,92,255,0.1); border:1px solid rgba(177,92,255,0.25);
-    display:flex;align-items:center;justify-content:center;color:var(--accent);
-    box-shadow:0 0 0 rgba(177,92,255,0); transition:box-shadow .4s;
-  }
-  .feature-row:hover .feat-icon{box-shadow:0 0 26px rgba(177,92,255,0.35);}
-  .feature-text h3{font-family:'Space Grotesk';font-size:clamp(22px,2.4vw,28px);font-weight:600;margin-bottom:14px;line-height:1.2;}
-  .feature-text p.f-desc{font-size:15.5px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:480px;}
-  .f-highlights{list-style:none;display:flex;flex-direction:column;gap:12px;}
-  .f-highlights li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#D7CFE8;}
-  .f-highlights li svg{flex-shrink:0;margin-top:2px;color:var(--green);}
-
-  .device-stage{position:relative;perspective:1700px;}
-  .device-glow{
-    position:absolute; inset:-90px; z-index:0;
-    background:radial-gradient(closest-side, rgba(177,92,255,0.32), rgba(122,61,255,0.08) 55%, transparent 75%);
-    filter:blur(10px); pointer-events:none;
-  }
-  .device-frame{position:relative;z-index:1;transition:transform .4s cubic-bezier(.2,.8,.2,1);}
-  .feature-row:hover .device-frame{transform:translateY(-6px);}
-
-  .device-frame.laptop .laptop-lid{
-    background:#150F22; border:1px solid rgba(177,92,255,0.22);
-    border-radius:14px 14px 5px 5px; padding:14px 14px 10px;
-    box-shadow:0 60px 100px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.03);
-  }
-  .laptop-cam{width:6px;height:6px;border-radius:50%;background:#332C48;margin:0 auto 10px;}
-  .device-frame.laptop .screen{border-radius:5px;overflow:hidden;background:#0C0716;aspect-ratio:16/10;border:1px solid var(--border-soft);}
-  .laptop-base{
-    height:15px; margin:0 10px; position:relative;
-    background:linear-gradient(180deg,#1B1330,#100A1C);
-    border-radius:0 0 9px 9px;
-  }
-  .laptop-base::after{
-    content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
-    width:72px; height:5px; background:var(--bg); border-radius:0 0 6px 6px;
-  }
-
-  .device-frame.monitor .screen-wrap{
-    background:#150F22; border:1px solid rgba(177,92,255,0.22); border-radius:14px; padding:12px;
-    box-shadow:0 60px 100px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.03);
-  }
-  .device-frame.monitor .screen{border-radius:7px;overflow:hidden;background:#0C0716;aspect-ratio:16/10;border:1px solid var(--border-soft);}
-  .monitor-stand{width:14%;min-width:46px;height:34px;margin:0 auto;background:linear-gradient(180deg,#1B1330,#100A1C);clip-path:polygon(36% 0,64% 0,78% 100%,22% 100%);}
-  .monitor-foot{width:32%;min-width:110px;height:8px;margin:0 auto;border-radius:8px;background:#1B1330;}
-
-  .screen img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#0C0716;}
-  .screen-doc{background:#fff !important;display:flex;align-items:center;justify-content:center;padding:14px;}
-  .screen-doc img{width:auto;height:100%;max-width:100%;object-fit:contain;}
-
-  .timeline-wrap{position:relative;}
-  .timeline-line{
-    position:absolute; left:29px; top:10px; bottom:10px; width:2px;
-    background:rgba(255,255,255,0.07);
-  }
-  .timeline-fill{
-    position:absolute; left:0; top:0; width:2px; height:0%;
-    background:linear-gradient(180deg,var(--accent),var(--green));
-    box-shadow:0 0 12px var(--accent);
-  }
-  .tl-item{display:grid;grid-template-columns:60px 1fr;gap:26px;padding-bottom:52px;position:relative;}
-  .tl-item:last-child{padding-bottom:0;}
-  .tl-num{
-    width:60px;height:60px;border-radius:50%;
-    background:var(--panel); border:1px solid var(--border-soft);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk';font-weight:600;font-size:14px;color:var(--muted);
-    z-index:2; transition:border-color .4s, color .4s, box-shadow .4s;
-  }
-  .tl-item.on .tl-num{border-color:var(--accent);color:var(--text);box-shadow:0 0 22px rgba(177,92,255,0.4);}
-  .tl-body{padding-top:10px;}
-  .tl-body h4{font-family:'Space Grotesk';font-size:19px;font-weight:600;margin-bottom:6px;}
-  .tl-body p{color:var(--muted);font-size:14px;line-height:1.6;max-width:480px;}
-
-  .benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border-soft);border-radius:18px;overflow:hidden;border:1px solid var(--border-soft);}
-  @media (max-width:900px){.benefits-grid{grid-template-columns:repeat(2,1fr);}}
-  @media (max-width:600px){.benefits-grid{grid-template-columns:1fr;}}
-  .ben-card{background:var(--panel);padding:34px 28px;transition:background .3s;}
-  .ben-card:hover{background:#150D26;}
-  .ben-card .num{font-family:'Space Grotesk';font-size:12px;color:var(--muted);margin-bottom:16px;}
-  .ben-card h3{font-family:'Space Grotesk';font-size:17px;font-weight:600;margin-bottom:10px;}
-  .ben-card p{font-size:13.5px;color:var(--muted);line-height:1.6;}
-
-  .comp-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border-soft);border-radius:16px;overflow:hidden;}
-  .comp-table th,.comp-table td{padding:18px 16px;text-align:center;border-bottom:1px solid var(--border-soft);font-size:14px;}
-  .comp-table th{font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--muted);background:rgba(255,255,255,0.015);}
-  .comp-table td:first-child, .comp-table th:first-child{text-align:left;color:var(--text);font-weight:500;}
-  .comp-table tr:last-child td{border-bottom:none;}
-  .comp-table th.delta{color:var(--accent);}
-  .comp-table td.delta-col{background:rgba(177,92,255,0.05);}
-  .x-mark{color:#6b6280;font-size:16px;}
-  .check-mark{color:var(--green);font-size:16px;}
-  @media (max-width:700px){.comp-table{font-size:12px;} .comp-table th,.comp-table td{padding:12px 8px;}}
-
-  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;}
-  @media (max-width:900px){.price-grid{grid-template-columns:1fr;}}
-  .price-card{
-    background:var(--panel); border:1px solid var(--border-soft); border-radius:20px;
-    padding:34px 28px; display:flex; flex-direction:column;
-    transition:transform .35s, border-color .35s;
-  }
-  .price-card:hover{transform:translateY(-6px);}
-  .price-card.feat{
-    border-color:var(--accent);
-    background:linear-gradient(180deg, rgba(177,92,255,0.08), var(--panel) 40%);
-    position:relative;
-  }
-  .price-badge{position:absolute;top:-13px;left:28px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:11px;font-weight:600;padding:5px 14px;border-radius:100px;letter-spacing:.03em;}
-  .price-card h3{font-family:'Space Grotesk';font-size:18px;font-weight:600;margin-bottom:8px;}
-  .price-card .desc{font-size:13px;color:var(--muted);margin-bottom:22px;min-height:34px;}
-  .price-amount{font-family:'Space Grotesk';font-size:38px;font-weight:600;margin-bottom:4px;}
-  .price-amount span{font-size:14px;color:var(--muted);font-weight:400;}
-  .price-card ul{list-style:none;margin:26px 0 30px;display:flex;flex-direction:column;gap:12px;flex:1;}
-  .price-card ul li{font-size:13.5px;color:#D7CFE8;display:flex;gap:10px;align-items:flex-start;}
-  .price-card ul li svg{flex-shrink:0;margin-top:2px;color:var(--green);}
-
-  .faq-list{max-width:760px;margin:0 auto;}
-  .faq-item{border-bottom:1px solid var(--border-soft);}
-  .faq-q{
-    width:100%;text-align:left;background:none;border:none;color:var(--text);
-    padding:24px 4px; font-family:'Space Grotesk'; font-size:16px; font-weight:500;
-    display:flex;justify-content:space-between;align-items:center;
-  }
-  .faq-q .plus{width:22px;height:22px;flex-shrink:0;position:relative;transition:transform .35s;}
-  .faq-q .plus::before,.faq-q .plus::after{content:"";position:absolute;background:var(--accent);border-radius:2px;}
-  .faq-q .plus::before{width:14px;height:2px;top:10px;left:4px;}
-  .faq-q .plus::after{width:2px;height:14px;top:4px;left:10px;transition:opacity .3s;}
-  .faq-item.open .plus{transform:rotate(90deg);}
-  .faq-item.open .plus::after{opacity:0;}
-  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1);}
-  .faq-a p{padding:0 4px 24px;color:var(--muted);font-size:14.5px;line-height:1.65;max-width:640px;}
-
-  .final-cta{
-    border-radius:26px; padding:80px 50px; text-align:center; position:relative; overflow:hidden;
-    background:linear-gradient(180deg,#130A22,#0C0716);
-    border:1px solid var(--border);
-  }
-  .final-cta::before{
-    content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);
-    width:600px;height:400px;border-radius:50%;
-    background:radial-gradient(closest-side, rgba(177,92,255,0.35), transparent 70%);
-    filter:blur(20px);
-  }
-  .final-cta h2{position:relative;font-size:clamp(28px,3.6vw,44px);margin-bottom:16px;font-weight:600;}
-  .final-cta p{position:relative;color:var(--muted);margin-bottom:34px;font-size:16px;}
-  .final-cta .hero-actions{justify-content:center;position:relative;}
-
-  footer{border-top:1px solid var(--border-soft);padding:64px 0 32px;}
-  .foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;margin-bottom:56px;}
-  @media (max-width:800px){.foot-grid{grid-template-columns:repeat(2,1fr);}}
-  .foot-col h5{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:18px;}
-  .foot-col a, .foot-col p{display:block;font-size:14px;color:#B9AFD1;margin-bottom:12px;transition:color .25s;}
-  .foot-col a:hover{color:var(--accent);}
-  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border-soft);font-size:13px;color:var(--muted);flex-wrap:wrap;gap:14px;}
-  .btn-whatsapp svg{flex-shrink:0;}
-  a.btn-whatsapp:not(.btn){display:inline-flex;align-items:center;gap:6px;}
-  .foot-social a.btn-whatsapp{padding:0;}
-  .foot-social{display:flex;gap:14px;}
-  .foot-social a{width:36px;height:36px;border-radius:9px;border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;transition:border-color .3s,color .3s;}
-  .foot-social a:hover{border-color:var(--accent);color:var(--accent);}
-
-  .reveal{opacity:0;transform:translateY(28px);}
-
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none !important;transition:none !important;}
-    .reveal{opacity:1;transform:none;}
-  }
-
-  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
-
-  .brand-logo {
-    height: 28px; width: auto;
-    object-fit: contain;
-    opacity: 0.5;
-    filter: grayscale(100%) brightness(200%); 
-    transition: all 0.3s ease;
-  }
-  .brand-logo:hover {
-    opacity: 1;
-    filter: grayscale(0%) brightness(100%); transform: translateY(-3px);
-  }
-
-  @media (max-width: 600px) {
-    .brand-logo { height: 20px; }
-    .logos-row { gap: 20px; justify-content: center; }
-
-    nav { padding: 16px 20px; }
-    .nav-cta .btn-ghost { display: none; } .container { padding: 0 20px; } 
-    .hero { padding: 130px 0 50px; }
-
-    .foot-grid { 
-      grid-template-columns: 1fr; 
-      gap: 30px; 
-      text-align: center; 
-    }
-    .foot-col p { margin: 0 auto 12px auto; }
-    .foot-col .logo { justify-content: center; }
-    .foot-bottom { 
-      flex-direction: column; 
-      text-align: center; 
-      gap: 16px; 
-    }
-  }
-
   .wa-float{
-    position:fixed; right:22px; bottom:22px; z-index:200;
-    width:60px;height:60px;border-radius:50%;
+    position:fixed; right:20px; bottom:20px; z-index:190;
+    width:56px;height:56px;border-radius:50%;
     background:#25D366; color:#fff;
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 10px 30px -6px rgba(37,211,102,0.65), 0 0 0 1px rgba(255,255,255,0.08);
-    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
-    animation:wa-pulse 2.6s ease-in-out infinite;
+    box-shadow:0 10px 26px -6px rgba(37,211,102,0.6);
+    transition:transform .25s;
   }
-  .wa-float:hover{transform:translateY(-4px) scale(1.05); box-shadow:0 16px 36px -6px rgba(37,211,102,0.8), 0 0 0 1px rgba(255,255,255,0.1);}
-  .wa-float svg{width:30px;height:30px;}
-  @keyframes wa-pulse{
-    0%,100%{box-shadow:0 10px 30px -6px rgba(37,211,102,0.65), 0 0 0 0 rgba(37,211,102,0.5);}
-    50%{box-shadow:0 10px 30px -6px rgba(37,211,102,0.65), 0 0 0 10px rgba(37,211,102,0);}
-  }
-  @media (max-width:600px){ .wa-float{width:54px;height:54px;right:16px;bottom:16px;} .wa-float svg{width:27px;height:27px;} }
+  .wa-float:hover{transform:scale(1.06);}
+  .wa-float svg{width:28px;height:28px;}
+  @media (max-width:600px){.wa-float{width:50px;height:50px;right:16px;bottom:16px;}}
 
-  .allfeat-cats{display:flex;flex-direction:column;gap:44px;}
-  .allfeat-cat h4{
-    font-family:'Space Grotesk';font-size:15px;font-weight:600;color:var(--accent);
-    letter-spacing:.03em; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  .hero{padding:64px 0 80px; position:relative; overflow:hidden;}
+  .hero::before{
+    content:''; position:absolute; top:-200px; right:-160px; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(140,82,255,0.16), transparent 70%);
+    pointer-events:none;
   }
-  .allfeat-cat h4::after{content:"";flex:1;height:1px;background:var(--border-soft);}
-  .allfeat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-  @media (max-width:900px){.allfeat-grid{grid-template-columns:repeat(2,1fr);}}
+  .hero-grid{display:grid; grid-template-columns:1fr 0.86fr; gap:56px; align-items:center; position:relative;}
+  @media (max-width:980px){.hero-grid{grid-template-columns:1fr;}}
+
+  .hero h1{font-size:clamp(40px,6.4vw,70px); line-height:0.96; margin-bottom:22px;}
+  .hero-sub{font-size:17px; color:var(--muted); max-width:480px; line-height:1.65; margin-bottom:30px;}
+  .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:38px;}
+
+  .ticket-fields{
+    display:flex; flex-direction:column; gap:0; border-top:1px dashed var(--line); max-width:480px;
+  }
+  .ticket-fields div{
+    display:flex; justify-content:space-between; gap:14px; padding:11px 0;
+    border-bottom:1px dashed var(--line); font-family:var(--mono); font-size:13px;
+  }
+  .ticket-fields span:first-child{color:var(--muted);}
+  .ticket-fields span:last-child{color:var(--text); font-weight:500; text-align:right;}
+
+  .hero-ticket{position:relative;}
+  .hero-ticket-card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:10px;
+    padding:16px; position:relative;
+    box-shadow:0 40px 80px -24px rgba(0,0,0,0.6);
+    opacity:0; transform:translateY(14px); animation:cardIn .6s .15s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes cardIn{ to{opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion:reduce){.hero-ticket-card{animation:none; opacity:1; transform:none;}}
+  .ticket-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; font-family:var(--mono); font-size:11.5px; color:var(--muted);}
+  .ticket-head b{color:var(--text); font-family:var(--disp); font-weight:700; font-size:15px; letter-spacing:0.02em;}
+  .ticket-photo{border-radius:6px; overflow:hidden; border:1px solid var(--line); background:#0d0a13;}
+  .ticket-photo img{width:100%; display:block;}
+  .ticket-foot{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-family:var(--mono); font-size:11px; color:var(--muted);}
+
+  .trust-strip{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0;}
+  .trust-row{display:flex; align-items:center; gap:28px; flex-wrap:wrap; font-family:var(--mono); font-size:13px; color:var(--muted);}
+  .trust-row img{height:20px; width:auto; filter:grayscale(1) brightness(1.6); opacity:.75;}
+
+  .feature-list{display:flex; flex-direction:column; gap:0;}
+  .feature-row{
+    display:grid; grid-template-columns:0.95fr 1.05fr; gap:52px; align-items:center;
+    padding:46px 0; border-top:1px solid var(--line);
+  }
+  .feature-row:last-child{border-bottom:1px solid var(--line);}
+  .feature-row.rev .feature-photo{order:2;}
+  .feature-row.rev .feature-text{order:1;}
+  @media (max-width:860px){
+    .feature-row{grid-template-columns:1fr; gap:26px; padding:34px 0;}
+    .feature-row.rev .feature-photo{order:-1;}
+  }
+
+  .feature-text .tag{margin-bottom:12px;}
+  .feature-text h3{font-size:26px; margin-bottom:12px;}
+  .f-desc{color:var(--muted); font-size:15px; line-height:1.65; margin-bottom:18px;}
+  .f-highlights{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px;}
+  .f-highlights li{display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#D4CCE2;}
+  .f-highlights svg{flex-shrink:0; color:var(--brand-light); margin-top:3px;}
+
+  .feature-photo{position:relative; display:flex; justify-content:center; align-items:center;}
+  .photo-card{max-width:460px; width:100%; position:relative;}
+  .photo-card .tag-label{
+    display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px;
+    color:var(--muted); margin-bottom:10px;
+  }
+  .photo-card .shot{border-radius:7px; overflow:hidden; box-shadow:0 24px 50px -18px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.07);}
+  .photo-card .shot img{width:100%; display:block;}
+
+  .allfeat-cats{display:flex; flex-direction:column; gap:40px;}
+  .allfeat-cat h4{font-family:var(--mono); font-size:13.5px; font-weight:600; color:var(--brand-light); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--line);}
+  .allfeat-grid{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line);}
+  @media (max-width:860px){.allfeat-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:560px){.allfeat-grid{grid-template-columns:1fr;}}
-  .allfeat-item{
-    background:var(--panel); border:1px solid var(--border-soft); border-radius:14px;
-    padding:18px 18px; font-size:13.5px; color:#D7CFE8; line-height:1.55;
-    display:flex; gap:10px; align-items:flex-start; transition:border-color .3s, transform .3s;
-  }
-  .allfeat-item:hover{border-color:rgba(177,92,255,0.35); transform:translateY(-3px);}
-  .allfeat-item svg{flex-shrink:0;margin-top:2px;color:var(--accent);}
-  .allfeat-item strong{color:var(--text);display:block;margin-bottom:3px;font-weight:600;}
+  .allfeat-item{background:var(--ink); padding:18px 20px; font-size:13.5px; color:#CFC6DE; line-height:1.55; display:flex; gap:11px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .allfeat-item svg{flex-shrink:0; color:var(--brand-light); margin-top:3px;}
+  .allfeat-item strong{display:block; color:var(--text); font-weight:600; margin-bottom:3px; font-family:var(--sans);}
 
-  .price-note{font-size:12.5px;color:var(--muted);margin-top:8px;text-align:center;}
+  .timeline{position:relative; padding-left:48px;}
+  .timeline::before{content:'';position:absolute;left:15px;top:6px;bottom:6px;width:1px;background:var(--line);}
+  .tl-item{position:relative; padding-bottom:36px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-num{
+    position:absolute; left:-48px; top:0; width:32px;height:32px;border-radius:50%;
+    background:var(--ink-2); border:1.5px solid var(--brand); color:var(--brand-light);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12.5px; font-weight:600;
+  }
+  .tl-item h4{font-size:18px; margin-bottom:6px;}
+  .tl-item p{color:var(--muted); font-size:14.5px; line-height:1.6; max-width:520px;}
 
-  .download-panel{
-    background:var(--panel); border:1px solid var(--border-soft); border-radius:22px;
-    padding:44px; display:grid; grid-template-columns:0.95fr 1.05fr; gap:48px; align-items:center;
-  }
-  .download-shot{
-    border-radius:14px; overflow:hidden; border:1px solid var(--border-soft);
-    box-shadow:0 30px 70px -24px rgba(0,0,0,0.65), 0 0 0 1px rgba(177,92,255,0.06);
-  }
-  .download-shot img{width:100%;display:block;}
-  .download-official-btn{width:100%; justify-content:center; margin-top:6px;}
-  .download-note{
-    background:rgba(177,92,255,0.08); border:1px solid rgba(177,92,255,0.28); border-radius:14px;
-    padding:16px 18px; font-size:13.5px; color:#D7CFE8; line-height:1.6; margin-top:18px;
-  }
-  .download-note strong{color:var(--text);}
-  .download-warn{
-    background:rgba(255,159,67,0.08); border:1px solid rgba(255,159,67,0.3); border-radius:14px;
-    padding:16px 18px; font-size:13.5px; color:#F1D8B8; line-height:1.6; margin-top:12px;
-  }
-  @media (max-width:900px){
-    .download-panel{grid-template-columns:1fr; padding:28px;}
-  }
-  .rev-order-1{order:1;} .rev-order-2{order:2;}
-  @media (max-width:900px){ .rev-order-1{order:-1;} }
+  .benefits-grid{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line);}
+  @media (max-width:860px){.benefits-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.benefits-grid{grid-template-columns:1fr;}}
+  .ben-card{background:var(--ink); padding:26px 24px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .ben-card h3{font-size:18px; margin-bottom:8px;}
+  .ben-card p{color:var(--muted); font-size:14px; line-height:1.55;}
 
-  .vt-badge{display:flex; align-items:center; gap:18px;}
-  .vt-ring{
-    flex-shrink:0; width:64px;height:64px;border-radius:50%;
-    border:3px solid #37D67A; display:flex; align-items:center; justify-content:center;
-    color:#37D67A;
-  }
-  .vt-badge-title{font-weight:600; color:var(--text); font-size:15px; margin-bottom:4px;}
-  .vt-badge-sub{font-size:12.5px; color:var(--muted); line-height:1.5;}
+  .comp-table{width:100%; border-collapse:collapse; font-size:14px;}
+  .comp-table th, .comp-table td{padding:13px 16px; text-align:left; border-bottom:1px solid var(--line);}
+  .comp-table th{font-family:var(--mono); font-size:12px; color:var(--muted); font-weight:500; text-transform:none;}
+  .comp-table th.delta, .comp-table td.delta-col{background:rgba(140,82,255,0.08);}
+  .comp-table td{color:#D4CCE2;}
+  .x-mark{color:#6B6478;}
+  .check-mark{color:var(--green); font-weight:700;}
 
-  .sysreq{
-    margin-top:28px; background:var(--panel); border:1px solid var(--border-soft); border-radius:20px; padding:28px 32px;
+  .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
+  @media (max-width:860px){.price-grid{grid-template-columns:1fr; max-width:420px; margin:0 auto; gap:16px; background:none;}}
+  .price-card{
+    background:var(--ink-2); border-radius:0; position:relative;
+    display:flex; flex-direction:column;
   }
-  .sysreq h4{font-family:'Space Grotesk';font-size:15px;color:var(--accent);letter-spacing:.03em;margin-bottom:18px;}
-  .sysreq-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
-  @media (max-width:900px){ .sysreq-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:520px){ .sysreq-grid{grid-template-columns:1fr;} }
-  .sysreq-grid > div{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:#D7CFE8;}
-  .sysreq-grid svg{flex-shrink:0; color:var(--accent); margin-top:2px;}
+  @media (max-width:860px){.price-card{border-radius:10px; border:1px solid var(--line);}}
+  .price-card.feat{box-shadow:inset 0 0 0 1.5px var(--brand);}
+  .price-badge{
+    position:absolute; top:-12px; left:24px; background:var(--brand); color:#fff;
+    font-family:var(--mono); font-size:11px; padding:5px 10px; border-radius:3px;
+  }
+  .price-stub{padding:28px 24px 22px; border-bottom:1px solid var(--line); position:relative;}
+  .price-card h3{color:var(--text); font-size:22px; margin-bottom:6px;}
+  .price-card .desc{font-size:13.5px; color:var(--muted); line-height:1.5; margin-bottom:16px;}
+  .price-amount{font-family:var(--disp); font-size:30px; font-weight:800; color:var(--text);}
+  .price-body{padding:22px 24px 26px; flex:1; display:flex; flex-direction:column;}
+  .price-body ul{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .price-body li{font-size:13.5px; color:#D4CCE2; display:flex; gap:8px;}
+  .price-card .btn{width:100%;}
+  .price-note{font-size:12.5px; color:var(--muted); margin-top:18px; text-align:center;}
+
+  .ticket-panel{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:10px; padding:36px;
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:40px; align-items:center;
+  }
+  @media (max-width:860px){.ticket-panel{grid-template-columns:1fr; padding:26px;}}
+  .ticket-panel.single{grid-template-columns:1fr;}
+  .ticket-panel h3{color:var(--text); font-size:21px; margin-bottom:12px;}
+  .ticket-panel .f-desc{color:var(--muted);}
+  .ticket-shot{border-radius:6px; overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 44px -18px rgba(0,0,0,0.5);}
+  .ticket-note{background:rgba(140,82,255,0.07); border:1px solid rgba(140,82,255,0.2); border-radius:6px; padding:14px 16px; font-size:13px; line-height:1.6; margin:14px 0; color:#D4CCE2;}
+  .ticket-warn{background:rgba(232,96,76,0.1); border:1px solid rgba(232,96,76,0.3); border-radius:6px; padding:14px 16px; font-size:13px; line-height:1.6; margin-bottom:14px; color:#F0C9C2;}
+  .ticket-panel .price-note{color:var(--muted);}
+
+  .vt-row{display:flex; align-items:center; gap:16px; margin-bottom:18px;}
+  .vt-icon{
+    flex-shrink:0; width:54px;height:54px;border-radius:50%; border:2px solid var(--green);
+    display:flex; align-items:center; justify-content:center; color:var(--green);
+  }
+  .vt-row b{display:block; font-size:15px; margin-bottom:3px; color:var(--text);}
+  .vt-row span{font-size:12.5px; color:var(--muted); line-height:1.5;}
+
+  .sysreq{border-top:1px solid var(--line); padding-top:32px; margin-top:40px;}
+  .sysreq h4{font-family:var(--mono); font-size:13px; color:var(--brand-light); margin-bottom:20px;}
+  .sysreq-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  @media (max-width:860px){.sysreq-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.sysreq-grid{grid-template-columns:1fr;}}
+  .sysreq-grid > div{display:flex; gap:11px; align-items:flex-start; font-size:13px; color:#D4CCE2;}
+  .sysreq-grid svg{flex-shrink:0; color:var(--brand-light); margin-top:2px;}
   .sysreq-grid strong{display:block; color:var(--text); font-weight:600; margin-bottom:2px;}
 
-  .support-cta{
-    margin-top:48px; text-align:center; background:var(--panel); border:1px solid var(--border-soft);
-    border-radius:20px; padding:36px 28px;
+  .faq-list{border-top:1px solid var(--line);}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:20px 2px; text-align:left; font-size:16px; font-weight:600; color:var(--text);
   }
-  .support-cta h4{font-family:'Space Grotesk'; font-size:19px; margin-bottom:8px;}
-  .support-cta p{color:var(--muted); font-size:14px; margin-bottom:22px;}
-  .support-cta-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
-  @media (max-width:520px){ .support-cta-actions{flex-direction:column;} .support-cta-actions .btn{width:100%;justify-content:center;} }
+  .faq-q .idx{font-family:var(--mono); color:var(--muted); font-size:13px; margin-right:14px; flex-shrink:0;}
+  .faq-q-text{display:flex; flex:1;}
+  .faq-q .plus{width:18px;height:18px;flex-shrink:0;position:relative;}
+  .faq-q .plus::before, .faq-q .plus::after{content:'';position:absolute;background:var(--muted);transition:transform .25s;}
+  .faq-q .plus::before{left:0;top:8px;width:18px;height:1.5px;}
+  .faq-q .plus::after{left:8px;top:0;width:1.5px;height:18px;}
+  .faq-item.open .plus::after{transform:rotate(90deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding:0 2px 20px 40px; color:var(--muted); font-size:14.5px; line-height:1.6; max-width:640px;}
+
+  .support-cta{margin-top:44px; text-align:center; background:var(--ink-2); border:1px solid var(--line); border-radius:8px; padding:34px 26px;}
+  .support-cta h4{font-size:19px; margin-bottom:8px;}
+  .support-cta p{color:var(--muted); font-size:14px; margin-bottom:20px;}
+  .support-cta-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  @media (max-width:520px){.support-cta-actions{flex-direction:column;} .support-cta-actions .btn{width:100%;}}
+
+  .final-cta{text-align:center; max-width:640px; margin:0 auto;}
+  .final-cta h2{margin-bottom:14px;}
+  .final-cta p{color:var(--muted); font-size:16px; margin-bottom:30px;}
+
+  .barcode{height:36px; background-repeat:repeat-x; background-image:
+    repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 4px, var(--line) 4px 7px, transparent 7px 11px, var(--line) 11px 12px, transparent 12px 17px);
+    margin-bottom:40px; opacity:0.7;
+  }
+
+  footer{border-top:1px solid var(--line); padding:56px 0 28px;}
+  .foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px;}
+  @media (max-width:760px){.foot-grid{grid-template-columns:1fr 1fr; row-gap:32px;}}
+  @media (max-width:460px){.foot-grid{grid-template-columns:1fr; text-align:left;}}
+  .foot-col .logo{margin-bottom:14px; font-size:19px;}
+  .foot-col > p{color:var(--muted); font-size:13.5px; line-height:1.6; max-width:230px;}
+  .foot-col h5{font-family:var(--mono); font-size:12px; color:var(--muted); margin-bottom:14px; font-weight:500;}
+  .foot-col a{display:flex; align-items:center; gap:7px; font-size:14px; color:#CFC6DE; margin-bottom:10px;}
+  .foot-col a:hover{color:var(--brand-light);}
+  .foot-bottom{
+    border-top:1px solid var(--line); padding-top:22px; display:flex; justify-content:space-between;
+    align-items:center; flex-wrap:wrap; gap:14px; font-size:12.5px; color:var(--muted); font-family:var(--mono);
+  }
+  .foot-bottom a{display:inline; color:var(--muted);}
+  .foot-bottom a:hover{color:var(--brand-light);}
+  .foot-social{display:flex; gap:10px;}
+  .foot-social a{
+    width:32px;height:32px;border-radius:var(--radius);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:11px;
+  }
+  @media (max-width:600px){.foot-bottom{flex-direction:column; text-align:center;}}
 </style>
 </head>
 <body>
-
-<canvas id="particles"></canvas>
-<div class="noise"></div>
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-
 <header>
   <nav>
     <div class="logo"><span class="logo-mark"><picture><source srcset="img/logo-delta-code.webp" type="image/webp"><img src="img/logo-delta-code.png" alt="Delta Code" loading="eager" decoding="async"></picture></span><span class="logo-text">Delta Code</span></div>
     <div class="navlinks">
       <a href="#features">Funciones</a>
-      <a href="#proceso">Cómo se trabaja con Delta Code</a>
+      <a href="#proceso">Cómo funciona</a>
       <a href="#planes">Planes</a>
       <a href="#descarga">Descarga</a>
-      <a href="#faq">Preguntas frecuentes</a>
+      <a href="#faq">Preguntas</a>
     </div>
     <div class="nav-cta">
       <a href="#planes" class="btn btn-ghost btn-sm">Ver planes</a>
-      <a href="https://www.mediafire.com/file/ptfei1uxi4xvtq8/Delta_Code_Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Descargar
-      </a>
+      <a href="https://www.mediafire.com/file/ptfei1uxi4xvtq8/Delta_Code_Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">Descargar</a>
       <a href="#" class="btn btn-primary btn-sm btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">WhatsApp</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileDrawer">
         <span></span><span></span><span></span>
@@ -585,17 +395,14 @@
   </div>
   <nav class="drawer-links">
     <a href="#features">Funciones <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
-    <a href="#proceso">Cómo se trabaja con Delta Code <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    <a href="#proceso">Cómo funciona <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
     <a href="#planes">Planes <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
     <a href="#descarga">Descarga <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
-    <a href="#faq">Preguntas frecuentes <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    <a href="#faq">Preguntas <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
   </nav>
   <div class="drawer-cta">
     <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">Hablar por WhatsApp</a>
-    <a href="https://www.mediafire.com/file/ptfei1uxi4xvtq8/Delta_Code_Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-font">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Descargar
-    </a>
+    <a href="https://www.mediafire.com/file/ptfei1uxi4xvtq8/Delta_Code_Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-font">Descargar instalador</a>
   </div>
 </aside>
 
@@ -606,48 +413,53 @@
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <div class="eyebrow reveal"><span class="dot"></span> Software de escritorio para talleres y técnicos</div>
-      <h1 class="reveal">Tu taller, ordenado de verdad.</h1>
-      <p class="sub reveal">Clientes, equipos, reparaciones, caja y stock en un solo lugar. Delta Code está pensado para que sepas qué entró, qué estás reparando, qué está listo y qué ya entregaste.</p>
-      <div class="hero-actions reveal">
+      <div class="tag">Software de escritorio para talleres y técnicos</div>
+      <h1>Tu taller,<br>ordenado de verdad.</h1>
+      <p class="hero-sub">Clientes, equipos, reparaciones, caja y stock en un solo lugar. Sabés qué entró, qué estás reparando, qué está listo y qué ya entregaste — sin depender de internet para que funcione.</p>
+      <div class="hero-actions">
         <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">Hablar por WhatsApp</a>
         <a href="#features" class="btn btn-ghost btn-font">Ver funciones</a>
       </div>
-      <div class="hero-meta reveal">
-        <div><strong>Funciona localmente</strong>tus datos quedan en tu PC</div>
-        <div><strong>Licencia por taller</strong>pensada para tu negocio</div>
-        <div><strong>Documentos adaptados</strong>para distintos países</div>
+      <div class="ticket-fields">
+        <div><span>Instalación</span><span>Local, en la PC del taller</span></div>
+        <div><span>Licencia</span><span>Por taller, no clonable</span></div>
+        <div><span>Documentos</span><span>Adaptados por país</span></div>
       </div>
     </div>
 
-    <div class="mock-stage reveal">
-      <div class="mock-glow"></div>
-      <div class="mock-window" id="mockWindow">
-        <div class="mock-topbar"><span></span><span></span><span></span></div>
-        <div class="mock-real-screen">
+    <div class="hero-ticket">
+      <div class="hero-ticket-card">
+        <div class="ticket-head"><b>Delta Code</b><span>Enterprise</span></div>
+        <div class="ticket-photo">
           <picture><source srcset="img/dashboard-inteligente.webp" type="image/webp"><img src="img/dashboard-inteligente.png" alt="Dashboard real de Delta Code" loading="eager" decoding="async"></picture>
         </div>
+        <div class="ticket-foot"><span>Dashboard</span><span>Taller en Vivo</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="trust-strip">
+  <div class="container trust-row">
+    <span>Compatible con todas las marcas</span>
+    <img src="img/logo-samsung.png" alt="Samsung">
+    <img src="img/logo-motorola.png" alt="Motorola">
+    <span>iPhone</span><span>Xiaomi</span><span>LG</span>
+  </div>
+</div>
+
 <section class="pad" id="features">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="sec-eyebrow">Lo que realmente vas a usar</span>
+    <div class="sec-head">
       <h2>Funciones pensadas para el trabajo de todos los días.</h2>
       <p>La idea es simple: tener a mano la información que necesitás cuando entra un equipo, durante la reparación y al momento de cobrar.</p>
     </div>
 
-    <div class="feature-showcase">
+    <div class="feature-list">
 
-      <div class="feature-row reveal">
+      <div class="feature-row">
         <div class="feature-text">
-          <div class="f-num">01 — VISIÓN DEL NEGOCIO</div>
-          <div class="feat-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 17V9"/><path d="M13 17V5"/><path d="M18 17v-7"/></svg>
-          </div>
+          <div class="tag">Visión del negocio</div>
           <h3>Sabé qué está pasando en tu taller de un vistazo.</h3>
           <p class="f-desc">El Dashboard y "Taller en Vivo" te muestran los equipos activos, las reparaciones pendientes y los accesos que más usás. Además, podés personalizar la apariencia del programa.</p>
           <ul class="f-highlights">
@@ -656,26 +468,17 @@
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Temas visuales para personalizar el taller</li>
           </ul>
         </div>
-        <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame monitor">
-            <div class="screen-wrap">
-              <div class="screen">
-                <picture><source srcset="img/dashboard-inteligente.webp" type="image/webp"><img src="img/dashboard-inteligente.png" alt="Dashboard y Taller en Vivo real de Delta Code" loading="lazy" decoding="async"></picture>
-              </div>
-            </div>
-            <div class="monitor-stand"></div>
-            <div class="monitor-foot"></div>
+        <div class="feature-photo">
+          <div class="photo-card">
+            <div class="tag-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>Dashboard · Taller en Vivo</div>
+            <div class="shot"><picture><source srcset="img/dashboard-inteligente.webp" type="image/webp"><img src="img/dashboard-inteligente.png" alt="Dashboard y Taller en Vivo real de Delta Code" loading="lazy" decoding="async"></picture></div>
           </div>
         </div>
       </div>
 
-      <div class="feature-row rev reveal">
+      <div class="feature-row rev">
         <div class="feature-text">
-          <div class="f-num">02 — FLUJO DE TRABAJO</div>
-          <div class="feat-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="16" rx="1"/><rect x="10.5" y="4" width="6" height="10" rx="1"/><rect x="18" y="4" width="3" height="13" rx="1"/></svg>
-          </div>
+          <div class="tag">Flujo de trabajo</div>
           <h3>Que no se te pierda ningún equipo.</h3>
           <p class="f-desc">Usá el tablero Kanban para saber en qué estado está cada equipo: Ingresado, En reparación, Listo/Reparado o Entregado. También podés buscar por cliente, IMEI o ticket.</p>
           <ul class="f-highlights">
@@ -684,26 +487,17 @@
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Etiqueta QR para identificar cada equipo</li>
           </ul>
         </div>
-        <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame laptop">
-            <div class="laptop-lid">
-              <div class="laptop-cam"></div>
-              <div class="screen">
-                <picture><source srcset="img/kanban-tablero.webp" type="image/webp"><img src="img/kanban-tablero.png" alt="Tablero Kanban real de Delta Code con los estados Ingresado, En reparación, Listo/Reparado y Entregado" loading="lazy" decoding="async"></picture>
-              </div>
-            </div>
-            <div class="laptop-base"></div>
+        <div class="feature-photo">
+          <div class="photo-card">
+            <div class="tag-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>Tablero Kanban</div>
+            <div class="shot"><picture><source srcset="img/kanban-tablero.webp" type="image/webp"><img src="img/kanban-tablero.png" alt="Tablero Kanban real de Delta Code con los estados Ingresado, En reparación, Listo/Reparado y Entregado" loading="lazy" decoding="async"></picture></div>
           </div>
         </div>
       </div>
 
-      <div class="feature-row reveal">
+      <div class="feature-row">
         <div class="feature-text">
-          <div class="f-num">03 — COMUNICACIÓN CON EL CLIENTE</div>
-          <div class="feat-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H12a8.4 8.4 0 0 1-4-1L3 20l1.2-3.6A8.4 8.4 0 0 1 3.5 12 8.5 8.5 0 1 1 21 11.5Z"/></svg>
-          </div>
+          <div class="tag">Comunicación con el cliente</div>
           <h3>Avisale al cliente cuando el equipo esté listo.</h3>
           <p class="f-desc">Cuando un equipo queda listo, podés abrir WhatsApp con el mensaje preparado. También podés enviar presupuestos sin copiar y pegar toda la información a mano.</p>
           <ul class="f-highlights">
@@ -712,26 +506,17 @@
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Encuesta de satisfacción al entregar</li>
           </ul>
         </div>
-        <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame monitor">
-            <div class="screen-wrap">
-              <div class="screen">
-                <picture><source srcset="img/whatsapp-aviso.webp" type="image/webp"><img src="img/whatsapp-aviso.png" alt="Avisale al cliente de WhatsApp real de Delta Code cuando un equipo está listo" loading="lazy" decoding="async"></picture>
-              </div>
-            </div>
-            <div class="monitor-stand"></div>
-            <div class="monitor-foot"></div>
+        <div class="feature-photo">
+          <div class="photo-card">
+            <div class="tag-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>Aviso automático por WhatsApp</div>
+            <div class="shot"><picture><source srcset="img/whatsapp-aviso.webp" type="image/webp"><img src="img/whatsapp-aviso.png" alt="Avisale al cliente de WhatsApp real de Delta Code cuando un equipo está listo" loading="lazy" decoding="async"></picture></div>
           </div>
         </div>
       </div>
 
-      <div class="feature-row rev reveal">
+      <div class="feature-row rev">
         <div class="feature-text">
-          <div class="f-num">04 — RELACIÓN CON EL CLIENTE</div>
-          <div class="feat-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
+          <div class="tag">Relación con el cliente</div>
           <h3>Tené el historial de cada cliente a mano.</h3>
           <p class="f-desc">El Perfil 360° reúne el historial de reparaciones, equipos y movimientos de cada cliente. También podés guardar notas internas para dejar registrado lo que necesites del taller.</p>
           <ul class="f-highlights">
@@ -740,26 +525,17 @@
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Ficha PDF y contacto directo por WhatsApp o mail</li>
           </ul>
         </div>
-        <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame laptop">
-            <div class="laptop-lid">
-              <div class="laptop-cam"></div>
-              <div class="screen">
-                <picture><source srcset="img/perfil-cliente-360.webp" type="image/webp"><img src="img/perfil-cliente-360.png" alt="Perfil de Cliente 360° real de Delta Code con Expediente Secreto" loading="lazy" decoding="async"></picture>
-              </div>
-            </div>
-            <div class="laptop-base"></div>
+        <div class="feature-photo">
+          <div class="photo-card">
+            <div class="tag-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>Perfil de Cliente 360°</div>
+            <div class="shot"><picture><source srcset="img/perfil-cliente-360.webp" type="image/webp"><img src="img/perfil-cliente-360.png" alt="Perfil de Cliente 360° real de Delta Code" loading="lazy" decoding="async"></picture></div>
           </div>
         </div>
       </div>
 
-      <div class="feature-row reveal">
+      <div class="feature-row">
         <div class="feature-text">
-          <div class="f-num">05 — BASE DE CLIENTES</div>
-          <div class="feat-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
+          <div class="tag">Base de clientes</div>
           <h3>Todos tus clientes, en un solo lugar.</h3>
           <p class="f-desc">Buscá clientes por nombre, teléfono o documento y accedé rápidamente a su historial. El sistema también te ayuda a identificar clientes que ya tienen registros.</p>
           <ul class="f-highlights">
@@ -768,26 +544,17 @@
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Búsqueda y paginado para bases de clientes grandes</li>
           </ul>
         </div>
-        <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame monitor">
-            <div class="screen-wrap">
-              <div class="screen">
-                <picture><source srcset="img/directorio-clientes.webp" type="image/webp"><img src="img/directorio-clientes.png" alt="Directorio de Clientes real de Delta Code" loading="lazy" decoding="async"></picture>
-              </div>
-            </div>
-            <div class="monitor-stand"></div>
-            <div class="monitor-foot"></div>
+        <div class="feature-photo">
+          <div class="photo-card">
+            <div class="tag-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>Directorio de Clientes</div>
+            <div class="shot"><picture><source srcset="img/directorio-clientes.webp" type="image/webp"><img src="img/directorio-clientes.png" alt="Directorio de Clientes real de Delta Code" loading="lazy" decoding="async"></picture></div>
           </div>
         </div>
       </div>
 
-      <div class="feature-row rev reveal">
+      <div class="feature-row rev">
         <div class="feature-text">
-          <div class="f-num">06 — PRESUPUESTOS Y FINANZAS</div>
-          <div class="feat-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h2"/></svg>
-          </div>
+          <div class="tag">Presupuestos y finanzas</div>
           <h3>Armá un presupuesto sin hacer cuentas a mano.</h3>
           <p class="f-desc">Generá presupuestos con repuestos, mano de obra y los datos del trabajo. Podés exportarlos a PDF con la información de tu taller y compartirlos con el cliente.</p>
           <ul class="f-highlights">
@@ -796,16 +563,10 @@
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Exportación de movimientos y reportes a Excel</li>
           </ul>
         </div>
-        <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame laptop">
-            <div class="laptop-lid">
-              <div class="laptop-cam"></div>
-              <div class="screen">
-                <picture><source srcset="img/reporte-pdf.webp" type="image/webp"><img src="img/reporte-pdf.png" alt="Presupuesto en PDF real generado por Delta Code, con QR imprimible" loading="lazy" decoding="async"></picture>
-              </div>
-            </div>
-            <div class="laptop-base"></div>
+        <div class="feature-photo">
+          <div class="photo-card">
+            <div class="tag-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>Presupuesto en PDF</div>
+            <div class="shot"><picture><source srcset="img/reporte-pdf.webp" type="image/webp"><img src="img/reporte-pdf.png" alt="Presupuesto en PDF real generado por Delta Code, con QR imprimible" loading="lazy" decoding="async"></picture></div>
           </div>
         </div>
       </div>
@@ -816,14 +577,12 @@
 
 <section class="pad" style="padding-top:0;">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="sec-eyebrow">Todo lo que tenés disponible</span>
+    <div class="sec-head">
       <h2>Y hay más herramientas para el día a día.</h2>
       <p>Funciones concretas para trabajar más ordenado, sin llenar el programa de cosas que no necesitás.</p>
     </div>
 
-    <div class="allfeat-cats reveal">
-
+    <div class="allfeat-cats">
       <div class="allfeat-cat">
         <h4>Equipos y reparaciones</h4>
         <div class="allfeat-grid">
@@ -882,71 +641,50 @@
           <div class="allfeat-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Datos guardados localmente</strong>Tus datos quedan en la PC del taller para trabajar sin depender de un servidor externo.</div></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <section class="pad" id="proceso">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="sec-eyebrow">Cómo se trabaja con Delta Code</span>
+    <div class="sec-head">
       <h2>Desde que entra el equipo hasta que lo entregás.</h2>
       <p>El flujo es simple: registrás el equipo, presupuestás, reparás, avisás y entregás. La información queda guardada para consultar después.</p>
     </div>
-
-    <div class="timeline-wrap" id="tlWrap">
-      <div class="timeline-line"></div>
-      <div class="timeline-fill" id="tlFill"></div>
-      <div class="tl-item"><div class="tl-num">01</div><div class="tl-body"><h4>Registrá el equipo</h4><p>Guardá los datos del cliente, marca, modelo, IMEI o serie, falla y la información necesaria para identificar el equipo.</p></div></div>
-      <div class="tl-item"><div class="tl-num">02</div><div class="tl-body"><h4>Armá el presupuesto</h4><p>Sumá repuestos y mano de obra, revisá el total y prepará el presupuesto para compartirlo con el cliente.</p></div></div>
-      <div class="tl-item"><div class="tl-num">03</div><div class="tl-body"><h4>Actualizá el estado</h4><p>Mové el equipo entre los estados del taller a medida que avanza la reparación.</p></div></div>
-      <div class="tl-item"><div class="tl-num">04</div><div class="tl-body"><h4>Avisale al cliente</h4><p>Cuando terminás, podés avisarle al cliente por WhatsApp sin tener que escribir todo de nuevo.</p></div></div>
-      <div class="tl-item"><div class="tl-num">05</div><div class="tl-body"><h4>Entregá y cobrá</h4><p>Registrá el cobro y dejá asentada la entrega. La información queda disponible en el historial.</p></div></div>
-      <div class="tl-item"><div class="tl-num">06</div><div class="tl-body"><h4>Cerrá el trabajo</h4><p>El trabajo queda guardado en el historial del cliente para consultarlo cuando vuelva.</p></div></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-num">01</div><h4>Registrá el equipo</h4><p>Guardá los datos del cliente, marca, modelo, IMEI o serie, falla y la información necesaria para identificar el equipo.</p></div>
+      <div class="tl-item"><div class="tl-num">02</div><h4>Armá el presupuesto</h4><p>Sumá repuestos y mano de obra, revisá el total y prepará el presupuesto para compartirlo con el cliente.</p></div>
+      <div class="tl-item"><div class="tl-num">03</div><h4>Actualizá el estado</h4><p>Mové el equipo entre los estados del taller a medida que avanza la reparación.</p></div>
+      <div class="tl-item"><div class="tl-num">04</div><h4>Avisale al cliente</h4><p>Cuando terminás, podés avisarle al cliente por WhatsApp sin tener que escribir todo de nuevo.</p></div>
+      <div class="tl-item"><div class="tl-num">05</div><h4>Entregá y cobrá</h4><p>Registrá el cobro y dejá asentada la entrega. La información queda disponible en el historial.</p></div>
+      <div class="tl-item"><div class="tl-num">06</div><h4>Cerrá el trabajo</h4><p>El trabajo queda guardado en el historial del cliente para consultarlo cuando vuelva.</p></div>
     </div>
   </div>
 </section>
 
 <section class="pad">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="sec-eyebrow">¿Qué te resuelve Delta Code?</span>
+    <div class="sec-head">
       <h2>En vez de tener todo repartido, tenelo en un solo lugar.</h2>
     </div>
-    <div class="benefits-grid reveal" id="benGrid"></div>
+    <div class="benefits-grid" id="benGrid"></div>
   </div>
 </section>
 
 <section class="pad">
   <div class="container">
-    <div class="sec-head center reveal" style="margin-left:auto;margin-right:auto;">
-      <span class="sec-eyebrow">Menos cosas sueltas. Más orden.</span>
+    <div class="sec-head center">
       <h2>No reemplaza cómo trabajás: te ayuda a tenerlo más ordenado.</h2>
     </div>
-    <div style="overflow-x:auto;" class="reveal">
+    <div style="overflow-x:auto;">
       <table class="comp-table">
-        <tr>
-          <th>Función</th><th>Excel</th><th>WhatsApp</th><th>Cuaderno</th><th class="delta">Delta Code</th>
-        </tr>
-        <tr>
-          <td>Historial completo por cliente</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td>
-        </tr>
-        <tr>
-          <td>Presupuestos con stock integrado</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td>
-        </tr>
-        <tr>
-          <td>Control de stock y alertas</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td>
-        </tr>
-        <tr>
-          <td>Caja diaria con ganancia real</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td>
-        </tr>
-        <tr>
-          <td>Funciona sin internet</td><td><span class="check-mark">✓</span></td><td><span class="x-mark">✕</span></td><td><span class="check-mark">✓</span></td><td class="delta-col"><span class="check-mark">✓</span></td>
-        </tr>
-        <tr>
-          <td>Roles, auditoría y backups</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td>
-        </tr>
+        <tr><th>Función</th><th>Excel</th><th>WhatsApp</th><th>Cuaderno</th><th class="delta">Delta Code</th></tr>
+        <tr><td>Historial completo por cliente</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td></tr>
+        <tr><td>Presupuestos con stock integrado</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td></tr>
+        <tr><td>Control de stock y alertas</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td></tr>
+        <tr><td>Caja diaria con ganancia real</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td></tr>
+        <tr><td>Funciona sin internet</td><td><span class="check-mark">✓</span></td><td><span class="x-mark">✕</span></td><td><span class="check-mark">✓</span></td><td class="delta-col"><span class="check-mark">✓</span></td></tr>
+        <tr><td>Roles, auditoría y backups</td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td><span class="x-mark">✕</span></td><td class="delta-col"><span class="check-mark">✓</span></td></tr>
       </table>
     </div>
   </div>
@@ -954,47 +692,58 @@
 
 <section class="pad" id="planes">
   <div class="container">
-    <div class="sec-head center reveal" style="margin-left:auto;margin-right:auto;">
-      <span class="sec-eyebrow">Planes</span>
+    <div class="sec-head center">
       <h2>Elegí el plan según cómo trabajás.</h2>
       <p>La licencia se coordina directamente por WhatsApp. No procesamos pagos dentro de esta página.</p>
     </div>
-    <div class="price-grid reveal">
+    <div class="price-grid">
       <div class="price-card">
-        <h3>Básico</h3>
-        <p class="desc">Para técnicos que trabajan solos y quieren tener todo más ordenado.</p>
-        <div class="price-amount">Consultar</div>
-        <ul>
-          <li>✓ 1 usuario / 1 PC</li>
-          <li>✓ Equipos, clientes y presupuestos ilimitados</li>
-          <li>✓ Stock, caja diaria y agenda</li>
-          <li>✓ Avisos por WhatsApp</li>
-        </ul>
-        <a href="#" class="btn btn-ghost btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre el plan Básico de Delta Code" style="width:100%;">Consultar por WhatsApp</a>
+        <div class="price-stub">
+          <h3>Básico</h3>
+          <p class="desc">Para técnicos que trabajan solos y quieren tener todo más ordenado.</p>
+          <div class="price-amount">Consultar</div>
+        </div>
+        <div class="price-body">
+          <ul>
+            <li>✓ 1 usuario / 1 PC</li>
+            <li>✓ Equipos, clientes y presupuestos ilimitados</li>
+            <li>✓ Stock, caja diaria y agenda</li>
+            <li>✓ Avisos por WhatsApp</li>
+          </ul>
+          <a href="#" class="btn btn-ghost btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre el plan Básico de Delta Code">Consultar por WhatsApp</a>
+        </div>
       </div>
       <div class="price-card feat">
         <span class="price-badge">Más completo</span>
-        <h3>Pro</h3>
-        <p class="desc">Para talleres donde trabajan varias personas.</p>
-        <div class="price-amount">Consultar</div>
-        <ul>
-          <li>✓ Múltiples usuarios con roles y permisos</li>
-          <li>✓ Registro de auditoría</li>
-          <li>✓ Backups automáticos locales y en la nube</li>
-          <li>✓ Reportes de rentabilidad por equipo</li>
-        </ul>
-        <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre el plan Pro de Delta Code" style="width:100%;">Consultar por WhatsApp</a>
+        <div class="price-stub">
+          <h3>Pro</h3>
+          <p class="desc">Para talleres donde trabajan varias personas.</p>
+          <div class="price-amount">Consultar</div>
+        </div>
+        <div class="price-body">
+          <ul>
+            <li>✓ Múltiples usuarios con roles y permisos</li>
+            <li>✓ Registro de auditoría</li>
+            <li>✓ Backups automáticos locales y en la nube</li>
+            <li>✓ Reportes de rentabilidad por equipo</li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre el plan Pro de Delta Code">Consultar por WhatsApp</a>
+        </div>
       </div>
       <div class="price-card">
-        <h3>Multi-sucursal</h3>
-        <p class="desc">Para talleres con más de un local.</p>
-        <div class="price-amount">A medida</div>
-        <ul>
-          <li>✓ Licencia por sucursal</li>
-          <li>✓ Configuración y temas por local</li>
-          <li>✓ Soporte prioritario</li>
-        </ul>
-        <a href="#" class="btn btn-ghost btn-font btn-whatsapp" data-wa-msg="Hola, tengo más de un local y quiero info sobre Delta Code" style="width:100%;">Hablar con ventas</a>
+        <div class="price-stub">
+          <h3>Multi-sucursal</h3>
+          <p class="desc">Para talleres con más de un local.</p>
+          <div class="price-amount">A medida</div>
+        </div>
+        <div class="price-body">
+          <ul>
+            <li>✓ Licencia por sucursal</li>
+            <li>✓ Configuración y temas por local</li>
+            <li>✓ Soporte prioritario</li>
+          </ul>
+          <a href="#" class="btn btn-ghost btn-font btn-whatsapp" data-wa-msg="Hola, tengo más de un local y quiero info sobre Delta Code">Hablar con ventas</a>
+        </div>
       </div>
     </div>
     <p class="price-note">Consultá precio y disponibilidad por WhatsApp. No procesamos pagos desde esta página.</p>
@@ -1003,49 +752,37 @@
 
 <section class="pad" id="descarga">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="sec-eyebrow">Descarga oficial</span>
+    <div class="sec-head">
       <h2>¿Ya sos cliente? Descargá Delta Code desde acá.</h2>
       <p>Este es el canal oficial de descarga. Si recibís un instalador por otro medio, mejor consultanos antes de abrirlo.</p>
     </div>
 
-    <div class="download-panel reveal">
+    <div class="ticket-panel">
       <div>
-        <div class="download-shot">
+        <div class="ticket-shot">
           <img src="img/smartscreen-warning.png" alt="Aviso de Windows SmartScreen que aparece al instalar Delta Code por primera vez" loading="lazy" decoding="async">
         </div>
       </div>
       <div>
-        <h3 style="font-family:'Space Grotesk';font-size:22px;margin-bottom:12px;">Si Windows muestra este aviso, no te asustes.</h3>
+        <h3>Si Windows muestra este aviso, no te asustes.</h3>
         <p class="f-desc" style="margin-bottom:0;">Al abrir el instalador, Windows puede mostrar "Windows protegió su PC" y señalar a Delta Code como <strong>Editor desconocido</strong>. Esto puede aparecer porque el instalador no cuenta con un certificado de firma de código reconocido por Windows.</p>
-
-        <div class="download-note">
-          Si descargaste el instalador desde esta página y querés continuar, abrí <strong>"Más información"</strong> y revisá la información del archivo antes de elegir cómo seguir.
-        </div>
-        <div class="download-warn">
-          Si te pasaron un instalador por un grupo, un link acortado u otra página, consultanos primero. Para mayor seguridad, usá siempre el enlace de esta página.
-        </div>
-
-        <a href="https://www.mediafire.com/file/ptfei1uxi4xvtq8/Delta_Code_Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-font download-official-btn">
+        <div class="ticket-note">Si descargaste el instalador desde esta página y querés continuar, abrí <strong>"Más información"</strong> y revisá la información del archivo antes de elegir cómo seguir.</div>
+        <div class="ticket-warn">Si te pasaron un instalador por un grupo, un link acortado u otra página, consultanos primero. Para mayor seguridad, usá siempre el enlace de esta página.</div>
+        <a href="https://www.mediafire.com/file/ptfei1uxi4xvtq8/Delta_Code_Setup.zip/file" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-font" style="width:100%;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Descargar Delta Code
         </a>
-        <p class="price-note">¿Dudas antes de instalar? <a href="#" class="btn-whatsapp" data-wa-msg="Hola, tengo una duda sobre la instalación de Delta Code" style="color:var(--accent-2);">Escribinos por WhatsApp</a>.</p>
+        <p class="price-note">¿Dudas antes de instalar? <a href="#" class="btn-whatsapp" data-wa-msg="Hola, tengo una duda sobre la instalación de Delta Code" style="color:var(--brand);">Escribinos por WhatsApp</a>.</p>
       </div>
     </div>
 
-    <div class="download-panel reveal" style="margin-top:28px;grid-template-columns:1fr;">
-      <div class="rev-order-2">
-        <div class="vt-badge">
-          <div class="vt-ring">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
-          </div>
-          <div>
-            <div class="vt-badge-title">Análisis público del instalador</div>
-            <div class="vt-badge-sub">El instalador puede revisarse públicamente en VirusTotal y comparar los resultados de distintos motores antivirus.</div>
-          </div>
+    <div class="ticket-panel single" style="margin-top:22px;">
+      <div>
+        <div class="vt-row">
+          <div class="vt-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <div><b>Análisis público del instalador</b><span>El instalador puede revisarse públicamente en VirusTotal y comparar los resultados de distintos motores antivirus.</span></div>
         </div>
-        <h3 style="font-family:'Space Grotesk';font-size:22px;margin:22px 0 12px;">Podés revisar el archivo por tu cuenta.</h3>
+        <h3>Podés revisar el archivo por tu cuenta.</h3>
         <p class="f-desc">El resultado puede cambiar cuando actualizamos el instalador. Por eso dejamos el análisis público para que puedas consultar la versión disponible.</p>
         <p class="f-desc" style="margin-bottom:0;">Un antivirus puede marcar un instalador independiente por heurística aunque otros motores no lo hagan. Si tenés dudas sobre una detección concreta, consultanos antes de instalar.</p>
         <a href="https://www.virustotal.com/gui/file/890797724b72dfaee767a68c3eb4afa73bd0c77e020f6585b25fb1abb03b2645?nocache=1" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-font" style="margin-top:18px;">
@@ -1055,7 +792,7 @@
       </div>
     </div>
 
-    <div class="sysreq reveal">
+    <div class="sysreq">
       <h4>Qué necesitás para usarlo</h4>
       <div class="sysreq-grid">
         <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg><div><strong>Windows 10 u 11</strong>64 bits</div></div>
@@ -1070,13 +807,12 @@
 
 <section class="pad" id="faq">
   <div class="container">
-    <div class="sec-head center reveal" style="margin-left:auto;margin-right:auto;">
-      <span class="sec-eyebrow">Preguntas frecuentes frecuentes</span>
+    <div class="sec-head center">
       <h2>Las dudas más comunes, claras y al punto.</h2>
     </div>
-    <div class="faq-list reveal" id="faqList"></div>
+    <div class="faq-list" id="faqList"></div>
 
-    <div class="support-cta reveal">
+    <div class="support-cta">
       <h4>¿Encontraste un error o querés sugerir algo?</h4>
       <p>Contanos qué pasó. Leemos las sugerencias y los reportes directamente por WhatsApp.</p>
       <div class="support-cta-actions">
@@ -1089,12 +825,11 @@
 
 <section class="pad" id="demo">
   <div class="container">
-    <div class="final-cta reveal">
+    <div class="barcode"></div>
+    <div class="final-cta">
       <h2>Ordená tu taller y trabajá más tranquilo.</h2>
       <p>Escribinos por WhatsApp y te contamos cómo funciona Delta Code y qué plan puede servirte.</p>
-      <div class="hero-actions">
-        <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">Hablar por WhatsApp</a>
-      </div>
+      <a href="#" class="btn btn-primary btn-font btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">Hablar por WhatsApp</a>
     </div>
   </div>
 </section>
@@ -1103,13 +838,13 @@
   <div class="container">
     <div class="foot-grid">
       <div class="foot-col">
-        <div class="logo" style="margin-bottom:16px;"><span class="logo-mark"><picture><source srcset="img/logo-delta-code.webp" type="image/webp"><img src="img/logo-delta-code.png" alt="Delta Code" loading="lazy" decoding="async"></picture></span> Delta Code</div>
-        <p style="max-width:240px;">Sistema de gestión para talleres y técnicos. Ordená clientes, equipos, reparaciones, stock y caja desde tu PC.</p>
+        <div class="logo"><span class="logo-mark"><picture><source srcset="img/logo-delta-code.webp" type="image/webp"><img src="img/logo-delta-code.png" alt="Delta Code" loading="lazy" decoding="async"></picture></span> Delta Code</div>
+        <p>Sistema de gestión para talleres y técnicos. Ordená clientes, equipos, reparaciones, stock y caja desde tu PC.</p>
       </div>
       <div class="foot-col">
         <h5>Producto</h5>
         <a href="#features">Funciones</a>
-        <a href="#proceso">Cómo se trabaja con Delta Code</a>
+        <a href="#proceso">Cómo funciona</a>
         <a href="#planes">Planes</a>
         <a href="#descarga">Descarga</a>
       </div>
@@ -1124,7 +859,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Delta Code. Todos los derechos reservados. · <a href="terminos.html" style="display:inline;color:inherit;">Términos y Condiciones</a> · <a href="privacidad.html" style="display:inline;color:inherit;">Privacidad</a></span>
+      <span>© 2026 Delta Code · <a href="terminos.html">Términos y Condiciones</a> · <a href="privacidad.html">Privacidad</a></span>
       <div class="foot-social">
         <a href="https://www.instagram.com/deltacodeteams/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
         <a href="#" aria-label="WhatsApp" class="btn-whatsapp" data-wa-msg="Hola, quiero info sobre Delta Code">WA</a>
@@ -1138,18 +873,16 @@
 (function(){
   const WA_NUMBERS=['5491127932745','5491157658603'];
   const WA_ICON='<svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.37 3 3.98 8.39 3.98 15.06c0 2.2.58 4.29 1.68 6.16L3 29l7.98-2.6a12.05 12.05 0 0 0 5.06 1.12h.01c6.67 0 12.06-5.39 12.06-12.06C28.11 8.39 22.72 3 16.04 3Zm0 21.94h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.75 1.22 1.23-3.66-.24-.38a9.87 9.87 0 0 1-1.52-5.27c0-5.46 4.45-9.9 9.91-9.9 2.65 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.91 9.9v-.03Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>';
-
   function pickNumber(){ return WA_NUMBERS[Math.floor(Math.random()*WA_NUMBERS.length)]; }
-
   document.querySelectorAll('.btn-whatsapp').forEach(el=>{
     const msg=el.getAttribute('data-wa-msg')||'Hola, quiero info sobre Delta Code';
     el.href=`https://wa.me/${pickNumber()}?text=${encodeURIComponent(msg)}`;
     el.target='_blank';
     el.rel='noopener noreferrer';
-    const isIconOnly = el.getAttribute('aria-label')==='WhatsApp';
-    if(!el.classList.contains('wa-float')){
-      el.innerHTML = isIconOnly ? WA_ICON : (WA_ICON + '<span>'+el.textContent.trim()+'</span>');
-    }
+    const isIconOnly = el.getAttribute('aria-label')==='WhatsApp' || el.getAttribute('aria-label')==='Escribir por WhatsApp' && el.classList.contains('wa-float');
+    if(el.classList.contains('wa-float')) return;
+    if(el.textContent.trim()==='WA'){ el.innerHTML = WA_ICON; return; }
+    el.innerHTML = WA_ICON + '<span>' + el.textContent.trim() + '</span>';
   });
 })();
 
@@ -1159,7 +892,6 @@
   const overlay=document.getElementById('drawerOverlay');
   const closeBtn=document.getElementById('drawerClose');
   if(!toggle||!drawer||!overlay) return;
-
   function openDrawer(){
     drawer.classList.add('open'); overlay.classList.add('open');
     document.body.classList.add('drawer-lock');
@@ -1179,77 +911,6 @@
   window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
 })();
 
-(function(){
-  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined'){
-    document.querySelectorAll('.reveal').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
-    document.querySelectorAll('.tl-item').forEach(el=>el.classList.add('on'));
-    const fill=document.getElementById('tlFill'); if(fill) fill.style.height='100%';
-  }
-})();
-
-(function(){
-  if(window.matchMedia('(hover:none)').matches) return;
-  if(typeof gsap === 'undefined') return;
-  const dot=document.getElementById('cursor-dot'), ring=document.getElementById('cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-  function loop(){rx+=(mx-rx)*0.18;ry+=(my-ry)*0.18;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);}
-  loop();
-  document.querySelectorAll('a,button,.price-card,.faq-q,.device-stage,.allfeat-item').forEach(el=>{
-    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
-  });
-})();
-
-(function(){
-  if(typeof THREE === 'undefined') return;
-  const canvas=document.getElementById('particles');
-  let renderer;
-  try{ renderer=new THREE.WebGLRenderer({canvas, alpha:true, antialias:true}); }catch(e){ return; }
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 2000);
-  camera.position.z=520;
-
-  const count=340;
-  const positions=new Float32Array(count*3);
-  for(let i=0;i<count;i++){
-    positions[i*3]=(Math.random()-0.5)*1600;
-    positions[i*3+1]=(Math.random()-0.5)*1200;
-    positions[i*3+2]=(Math.random()-0.5)*900;
-  }
-  const geo=new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-  const mat=new THREE.PointsMaterial({color:0xB15CFF, size:2.1, transparent:true, opacity:0.55});
-  const points=new THREE.Points(geo, mat);
-  scene.add(points);
-
-  let mx=0,my=0;
-  window.addEventListener('mousemove', e=>{
-    mx=(e.clientX/window.innerWidth-0.5);
-    my=(e.clientY/window.innerHeight-0.5);
-  });
-
-  function animate(){
-    requestAnimationFrame(animate);
-    points.rotation.y+=0.0006;
-    points.rotation.x+=0.0002;
-    camera.position.x+=(mx*60-camera.position.x)*0.02;
-    camera.position.y+=(-my*60-camera.position.y)*0.02;
-    camera.lookAt(scene.position);
-    renderer.render(scene,camera);
-  }
-  animate();
-
-  window.addEventListener('resize',()=>{
-    camera.aspect=window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth,window.innerHeight);
-  });
-})();
-
 const benefits=[
   {t:'Reducí tiempos', d:'Menos pasos manuales, más equipos entregados por semana.'},
   {t:'Ordená clientes', d:'Toda la historia de cada cliente a un clic de distancia.'},
@@ -1259,10 +920,10 @@ const benefits=[
   {t:'Datos que no se pierden', d:'Backups automáticos locales y en la nube.'}
 ];
 const benGrid=document.getElementById('benGrid');
-benefits.forEach((b,i)=>{
+benefits.forEach(b=>{
   const el=document.createElement('div');
   el.className='ben-card';
-  el.innerHTML=`<div class="num">0${i+1}</div><h3>${b.t}</h3><p>${b.d}</p>`;
+  el.innerHTML=`<h3>${b.t}</h3><p>${b.d}</p>`;
   benGrid.appendChild(el);
 });
 
@@ -1277,10 +938,11 @@ const faqs=[
   {q:'¿Tiene garantía o devolución?', a:'Sí: probás Delta Code gratis durante 14 días completos, sin cargo. Si después de comprarlo te arrepentís, tenés 3 días desde la fecha de compra para pedir el reembolso completo, siempre que el uso haya sido normal (por ejemplo, no vale cargar toda la base de clientes del taller en esos 3 días y después pedir la devolución).'}
 ];
 const faqList=document.getElementById('faqList');
-faqs.forEach(f=>{
+faqs.forEach((f,i)=>{
   const item=document.createElement('div');
   item.className='faq-item';
-  item.innerHTML=`<button class="faq-q">${f.q}<span class="plus"></span></button>
+  const idx=String(i+1).padStart(2,'0');
+  item.innerHTML=`<button class="faq-q"><span class="faq-q-text"><span class="idx">${idx}</span>${f.q}</span><span class="plus"></span></button>
     <div class="faq-a"><p>${f.a}</p></div>`;
   faqList.appendChild(item);
 });
@@ -1298,33 +960,6 @@ faqList.addEventListener('click',e=>{
     answer.style.maxHeight=answer.scrollHeight+'px';
   }
 });
-
-if(typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
-  gsap.registerPlugin(ScrollTrigger);
-  document.querySelectorAll('.reveal').forEach(el=>{
-    gsap.to(el,{
-      opacity:1, y:0, duration:0.9, ease:'power3.out',
-      scrollTrigger:{trigger:el, start:'top 88%'}
-    });
-  });
-
-  const tlItems=document.querySelectorAll('.tl-item');
-  tlItems.forEach((it,i)=>{
-    ScrollTrigger.create({
-      trigger:it, start:'top 70%',
-      onEnter:()=>it.classList.add('on'),
-    });
-  });
-  ScrollTrigger.create({
-    trigger:'#tlWrap', start:'top 60%', end:'bottom 80%', scrub:0.6,
-    onUpdate:self=>{ document.getElementById('tlFill').style.height=(self.progress*100)+'%'; }
-  });
-
-  gsap.from('.logos-row img, .logos-row span',{
-    opacity:0, y:12, duration:0.6, stagger:0.06, ease:'power2.out',
-    scrollTrigger:{trigger:'.logos-strip', start:'top 85%'}
-  });
-}
 </script>
 </body>
 </html>
